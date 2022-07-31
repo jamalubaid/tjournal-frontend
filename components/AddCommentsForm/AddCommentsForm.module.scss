@@ -1,0 +1,32 @@
+.form {
+  position: relative;
+}
+
+.fieldRoot {
+  margin-top: 15px;
+  padding: 17px 17px 61px 17px !important;
+  background-color: #f7f7f7;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  border-radius: 10px;
+  &::before,
+  &::after {
+    display: none;
+  }
+  &:hover {
+    background-color: #fff;
+    border-color: #bdd6fa;
+    -webkit-box-shadow: 0 0 0 3px rgb(70 131 217 / 12%);
+    box-shadow: 0 0 0 3px rgb(70 131 217 / 12%);
+  }
+  input {
+    &:hover {
+      cursor: pointer !important;
+    }
+  }
+}
+
+.addButton {
+  position: absolute !important;
+  right: 15px;
+  bottom: 15px;
+}

@@ -1,0 +1,41 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "bracketSpacing": true
+  },
+  "dependencies": {
+    "@editorjs/editorjs": "^2.25.0",
+    "@hookform/resolvers": "^2.9.7",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@mui/icons-material": "^5.8.4",
+    "clsx": "^1.2.1",
+    "macro-css": "^1.0.5",
+    "next": "^12.2.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.34.0",
+    "sass": "^1.54.0",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.15",
+    "eslint": "^8.20.0",
+    "eslint-config-next": "^12.2.3",
+    "typescript": "^4.7.4"
+  }
+}
