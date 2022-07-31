@@ -20,3 +20,6 @@ npm run dev
 yarn dev
 ```
 
+<a href="https://github.com/Israpilow/tjournal-frontend" target="_blank">
+  <img src="https://raw.githubusercontent.com/Israpilow/tjournal-frontend/master/public/static/img/screens/timeline.png" width="500"/>
+</a>
