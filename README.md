@@ -14,9 +14,11 @@
 
 First, run the development server:
 
+```bash
 npm run dev
 # or
 yarn dev
+```
 
 <a href="https://raw.githubusercontent.com/Israpilow/tjournal-frontend/master/public/static/img/screens/timeline.png" target="_blank">
   <img src="https://raw.githubusercontent.com/Israpilow/tjournal-frontend/master/public/static/img/screens/timeline.png" width="1400"/>
