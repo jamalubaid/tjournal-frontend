@@ -20,6 +20,14 @@ npm run dev
 yarn dev
 ```
 
-<a href="https://github.com/Israpilow/tjournal-frontend" target="_blank">
+<a href="https://raw.githubusercontent.com/Israpilow/tjournal-frontend/master/public/static/img/screens/timeline.png" target="_blank">
   <img src="https://raw.githubusercontent.com/Israpilow/tjournal-frontend/master/public/static/img/screens/timeline.png" width="1400"/>
+</a>
+
+<a href="https://raw.githubusercontent.com/Israpilow/tjournal-frontend/master/public/static/img/screens/rating.png" target="_blank">
+  <img src="https://raw.githubusercontent.com/Israpilow/tjournal-frontend/master/public/static/img/screens/rating.png" width="1400"/>
+</a>
+
+<a href="https://raw.githubusercontent.com/Israpilow/tjournal-frontend/master/public/static/img/screens/user.png" target="_blank">
+  <img src="https://raw.githubusercontent.com/Israpilow/tjournal-frontend/master/public/static/img/screens/user.png" width="1400"/>
 </a>
