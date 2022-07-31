@@ -16,7 +16,7 @@ First, run the development server:
 
 ```bash
 npm run dev
-
+```
 yarn dev
 
 <a href="https://raw.githubusercontent.com/Israpilow/tjournal-frontend/master/public/static/img/screens/timeline.png" target="_blank">
@@ -30,4 +30,3 @@ yarn dev
 <a href="https://raw.githubusercontent.com/Israpilow/tjournal-frontend/master/public/static/img/screens/rating.png" target="_blank" >
   <img src="https://raw.githubusercontent.com/Israpilow/tjournal-frontend/master/public/static/img/screens/rating.png" width="1400"/>
 </a>
-```
