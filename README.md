@@ -14,9 +14,9 @@
 
 First, run the development server:
 
-```bash
+  bash
 npm run dev
-```
+
 yarn dev
 
 <a href="https://raw.githubusercontent.com/Israpilow/tjournal-frontend/master/public/static/img/screens/timeline.png" target="_blank">
