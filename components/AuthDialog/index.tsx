@@ -19,9 +19,10 @@ import Register from './forms/Register';
 interface AuthDialogProps {
   onClose: () => void;
   visible: boolean;
+  setAuthVisible: (data: boolean) => void;
 }
 
-const AuthDialog: React.FC<AuthDialogProps> = ({ onClose, visible }) => {
+const AuthDialog: React.FC<AuthDialogProps> = ({ onClose, setAuthVisible, visible }) => {
   const [formType, setFormType] = React.useState<'main' | 'email' | 'register'>('main');
   return (
     <Dialog open={visible} onClose={onClose} maxWidth="sm" fullWidth>
@@ -39,7 +40,11 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ onClose, visible }) => {
           {formType === 'main' && <Main onMain={() => setFormType('email')} />}
           {formType === 'email' && <Login onLogin={() => setFormType('register')} />}
           {formType === 'register' && (
-            <Register onRegister={() => setFormType('register')} onLoginRegister={() => setFormType('email')} />
+            <Register
+              onOpenRegister={() => setFormType('register')}
+              onOpenLogin={() => setFormType('email')}
+              setAuthVisible={setAuthVisible}
+            />
           )}
         </div>
       </DialogContent>

@@ -4,8 +4,11 @@ import { SettingsOutlined as SettingsIcon, TextsmsOutlined as MessageIcon } from
 
 import { Post } from '../../components/Post';
 import { MainLayout } from '../../layouts/MainLayout';
+import { useAppSelector } from '../../redux/hooks';
+import { selectUserData } from '../../redux/slices/user';
 
 export default function Profile() {
+  const userData = useAppSelector(selectUserData);
   return (
     <MainLayout contentFullWidth hideComments>
       <Paper className="pl-20 pr-20 pt-20 mb-30" elevation={0}>
@@ -16,7 +19,7 @@ export default function Profile() {
               src="https://leonardo.osnova.io/5ffeac9a-a0e5-5be6-98af-659bfaabd2a6/-/scale_crop/108x108/-/format/webp/"
             />
             <Typography style={{ fontWeight: 'bold' }} className="mt-10" variant="h4">
-              Amon Bower
+              {userData.fullName}
             </Typography>
           </div>
           <div>
