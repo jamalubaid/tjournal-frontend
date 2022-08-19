@@ -7,7 +7,7 @@ import { setCookie } from 'nookies';
 
 import { RegisterFormSchema } from '../../../utils/validations';
 import { RegisterUserDto } from '../../../utils/api/types';
-import { UserApi } from '../../../utils/api';
+import { Api } from '../../../utils/api';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from '../../../redux/hooks';
 import { setUserData } from '../../../redux/slices/user';
@@ -28,19 +28,19 @@ const Register: React.FC<RegisterFormProps> = ({ onOpenRegister, setAuthVisible,
 
   const onSubmit = async (dto: RegisterUserDto) => {
     try {
-      const data = await UserApi.register(dto);
-      console.log(data);
-      setCookie(null, 'authToken', data.token, {
+      const data = await Api().user.register(dto);
+      setCookie(null, 'rtoken', data.token, {
         maxAge: 30 * 24 * 60 * 60,
         path: '/',
       });
+      console.log(data);
+      
       setErrorMessage('');
       dispatch(setUserData(data));
       setAuthVisible(false);
     } catch (error) {
       console.warn('Register error', error);
       if (error.response) {
-        console.log(error.response.data);
         setErrorMessage(error.response.data.message);
       }
     }

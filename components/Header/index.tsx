@@ -28,10 +28,10 @@ import { useSelector } from 'react-redux';
 import { selectUserData } from '../../redux/slices/user';
 
 export const Header: React.FC<PaperProps> = () => {
-  const [authVisible, setAuthVisible] = React.useState<boolean>(false);
-  const router = useRouter();
   const userData = useSelector(selectUserData);
-  console.log(userData);
+  const [authVisible, setAuthVisible] = React.useState<boolean>(false);
+
+  const router = useRouter();
 
   const openAuthDialog = () => {
     setAuthVisible(true);
@@ -40,6 +40,12 @@ export const Header: React.FC<PaperProps> = () => {
   const closeAuthDialog = () => {
     setAuthVisible(false);
   };
+
+  React.useEffect(() => {
+    if (userData && authVisible) {
+      setAuthVisible(false);
+    }
+  }, [userData, authVisible])
 
   return (
     <Paper classes={{ root: styles.root }} elevation={0}>

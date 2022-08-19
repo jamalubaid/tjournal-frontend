@@ -7,9 +7,9 @@ import { LoginFormSchema } from '../../../utils/validations';
 
 import styles from '../AuthDialog.module.scss';
 import { FormField } from '../../FormField';
-import { UserApi } from '../../../utils/api';
 import { LoginUserDto } from '../../../utils/api/types';
 import { setCookie } from 'nookies';
+import { Api } from '../../../utils/api';
 
 interface LoginFormProps {
   onLogin: () => void;
@@ -24,21 +24,19 @@ const Login: React.FC<LoginFormProps> = ({ onLogin }) => {
 
   const onSubmit = async (dto: LoginUserDto) => {
     try {
-      const data = await UserApi.login(dto);
-      setCookie(null, 'authToken', data.token, {
+      const data = await Api().user.login(dto)
+      setCookie(null, 'rtoken', data.token, {
         maxAge: 30 * 24 * 60 * 60,
         path: '/',
       });
     } catch (error) {
       console.warn('Register error', error);
       if (error.response) {
-        console.log(error.response.data);
-        setErrorMessage(error.response.data.message);
+        setErrorMessage(error.response.data?.message);
       }
     }
   };
 
-  console.log(form.formState.errors);
 
   return (
     <FormProvider {...form}>
