@@ -2,8 +2,15 @@ import { Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography, Ta
 
 import { MainLayout } from '../layouts/MainLayout';
 import { FollowButton } from '../components/FollowButton';
+import { NextPage } from 'next';
+import { Api } from '../utils/api';
+import { ResponseCreateUser } from '../utils/api/types';
 
-export default function Rating() {
+interface RatingProps {
+  users: ResponseCreateUser[];
+}
+
+const Rating: NextPage<RatingProps> = ({ users }) => {
   return (
     <MainLayout>
       <Paper className="pl-20 pt-20 pr-20 mb-20" elevation={0}>
@@ -26,50 +33,49 @@ export default function Rating() {
           <TableHead>
             <TableRow>
               <TableCell>Имя пользователя</TableCell>
-              <TableCell align="right">Рейтинг</TableCell>
+              <TableCell align="center">Рейтинг</TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                <span className="mr-15">1</span>Алиса Зазеркальская
-              </TableCell>
-              <TableCell align="right">540</TableCell>
-              <TableCell align="right">
-                <FollowButton />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                <span className="mr-15">2</span>Андрей Меньков
-              </TableCell>
-              <TableCell align="right">318</TableCell>
-              <TableCell align="right">
-                <FollowButton />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                <span className="mr-15">3</span>Больной микрофон
-              </TableCell>
-              <TableCell align="right">274</TableCell>
-              <TableCell align="right">
-                <FollowButton />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                <span className="mr-15">5</span>Максим Смирнов
-              </TableCell>
-              <TableCell align="right">126</TableCell>
-              <TableCell align="right">
-                <FollowButton />
-              </TableCell>
-            </TableRow>
+            {users.map((obj) => {
+              return (
+                <TableRow key={obj.id}>
+                  <TableCell component="th" scope="row">
+                    <span className="mr-15">{obj.id}</span>
+                    {obj.fullName}
+                  </TableCell>
+                  <TableCell align="center">{obj.commentsCount * 2}</TableCell>
+                  <TableCell align="center">
+                    <FollowButton />
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </Paper>
     </MainLayout>
   );
-}
+};
+
+export default Rating;
+
+export const getServerSideProps = async (ctx) => {
+  try {
+    const users = await Api().user.getAll();
+    return {
+      props: {
+        users,
+      },
+    };
+  } catch (error) {
+    console.warn('error', error);
+  }
+
+  return {
+    props: {
+      users: null,
+    },
+  };
+};

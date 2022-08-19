@@ -16,7 +16,7 @@ export const Post: React.FC<PostItem> = ({ title, description, imageUrl, id }) =
         </Link>
       </Typography>
       <div className={styles.text}>
-      <Typography className="mt-10 mb-15" dangerouslySetInnerHTML={{ __html: description }} />
+        <Typography className="mt-10 mb-15" dangerouslySetInnerHTML={{ __html: description }} />
       </div>
       {imageUrl && (
         <img
@@ -25,7 +25,7 @@ export const Post: React.FC<PostItem> = ({ title, description, imageUrl, id }) =
           width={600}
         />
       )}
-      <PostActions />
+      <PostActions postId={id} />
     </Paper>
   );
 };

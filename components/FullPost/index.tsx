@@ -6,20 +6,26 @@ import UserAddIcon from '@material-ui/icons/PersonAddOutlined';
 
 import styles from './FullPost.module.scss';
 import { OutputData } from '@editorjs/editorjs';
+import { useAppSelector } from '../../redux/hooks';
+import { selectUserData } from '../../redux/slices/user';
+import { ResponseCreateUser } from '../../utils/api/types';
 
 interface FullPostProps {
   title: string;
   blocks: OutputData['blocks'];
+  user: ResponseCreateUser;
 }
 
-export const FullPost: React.FC<FullPostProps> = ({ title, blocks }) => {
+export const FullPost: React.FC<FullPostProps> = ({ title, blocks, user }) => {
+  console.log(user);
+
   return (
     <Paper elevation={0} className={styles.paper}>
       <div className="container">
         <Typography variant="h4" className={styles.title}>
           {title}
         </Typography>
-        <div>
+        <div className={styles.text}>
           {blocks.map((obj) => (
             <Typography key={obj.id} dangerouslySetInnerHTML={{ __html: obj.data.text }} />
           ))}
@@ -32,8 +38,8 @@ export const FullPost: React.FC<FullPostProps> = ({ title, blocks }) => {
                 src="https://leonardo.osnova.io/104b03b4-5173-fd9f-2af9-b458dddc4a23/-/scale_crop/108x108/-/format/webp/"
                 alt="Avatar"
               />
-              <b>Donnie Darko</b>
-              <span>+1685</span>
+              <b>{user.fullName}</b>
+              <span>+{user.comments.length * 2}</span>
             </div>
             <div>
               <Button variant="contained" className="mr-15">

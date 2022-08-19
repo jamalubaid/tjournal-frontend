@@ -1,22 +1,37 @@
 import { Button, Input } from '@material-ui/core';
 import React from 'react';
+import { Api } from '../../utils/api';
+import { CommentItem } from '../../utils/api/types';
+import { IPostCommentsProps } from '../PostComments';
 
 import styles from './AddCommentsForm.module.scss';
 
-export const AddCommentForm = () => {
+interface AddCommentFormProps {
+  postId?: number;
+  onSuccesAdd?: (obj: CommentItem) => void;
+}
+
+export const AddCommentForm: React.FC<AddCommentFormProps> = ({ postId, onSuccesAdd }) => {
   const [clicked, setClicked] = React.useState(false);
-  const [values, setValues] = React.useState('');
+  const [text, setText] = React.useState('');
   const [isChecked, setIsChecked] = React.useState(true);
 
   const onChangeValue = (e) => {
     const value = e.target.value;
-    setValues(value);
+    setText(value);
     value.length ? setIsChecked(false) : setIsChecked(true);
   };
 
-  const onAddComment = () => {
-    setValues('');
-    setClicked(false);
+  const onAddComment = async () => {
+    try {
+      const comment = await Api().comment.create({
+        postId,
+        text,
+      });
+      onSuccesAdd(comment);
+      setText('');
+      setClicked(false);
+    } catch (error) {}
   };
 
   return (
@@ -27,7 +42,7 @@ export const AddCommentForm = () => {
         minRows={clicked ? 5 : 1}
         classes={{ root: styles.fieldRoot }}
         placeholder="Написать комментарий..."
-        value={values}
+        value={text}
         fullWidth
         multiline
       />

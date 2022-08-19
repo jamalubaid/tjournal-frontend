@@ -1,4 +1,4 @@
-import { OutputData } from "@editorjs/editorjs";
+import { OutputData } from '@editorjs/editorjs';
 
 export type LoginUserDto = {
   email: string;
@@ -14,6 +14,8 @@ export type ResponseCreateUser = {
   updateAt?: string;
   email: string;
   fullName: string;
+  commentsCount?: number;
+  comments?: CommentItem[];
   id?: number;
   token?: string;
 };
@@ -29,4 +31,13 @@ export type PostItem = {
   title: string;
   updatedAt: string;
   views: number;
-}
+};
+
+export type CommentItem = {
+  id: number;
+  text: string;
+  post: PostItem;
+  user: ResponseCreateUser;
+  createdAt: string;
+  updatedAt: string;
+};

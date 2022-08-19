@@ -6,6 +6,7 @@ import {
   BookmarkBorderOutlined as FavoriteIcon,
   ShareOutlined as ShareIcon,
 } from '@material-ui/icons';
+import Link from 'next/link';
 
 const styles: CSSProperties = {
   display: 'flex',
@@ -17,14 +18,20 @@ const styles: CSSProperties = {
   margin: '0',
 };
 
-export const PostActions: React.FC = () => {
+interface IPostActionsProps {
+  postId?: number;
+}
+
+export const PostActions: React.FC<IPostActionsProps> = ({ postId }) => {
   return (
     <ul style={styles}>
-      <li>
-        <IconButton>
-          <CommentsIcon />
-        </IconButton>
-      </li>
+      <Link href={`/news/${postId}`}>
+        <a>
+          <IconButton>
+            <CommentsIcon />
+          </IconButton>
+        </a>
+      </Link>
       <li>
         <IconButton>
           <RepostIcon />
