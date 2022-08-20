@@ -11,7 +11,7 @@ interface CommentPostProps {
   user: ResponseCreateUser;
   text: string;
   createAt: string;
-  currentUserId: number;
+  currentUserId?: number;
   onRemove: (id: number) => void;
 }
 

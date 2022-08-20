@@ -36,7 +36,6 @@ export const Header: React.FC<PaperProps> = () => {
   const [authVisible, setAuthVisible] = React.useState<boolean>(false);
   const [searchValue, setSearchValue] = React.useState('');
   const [posts, setPosts] = React.useState<PostItem[]>([]);
-
   const openAuthDialog = () => {
     setAuthVisible(true);
   };
@@ -107,7 +106,7 @@ export const Header: React.FC<PaperProps> = () => {
           <NotificationIcon />
         </IconButton>
         {userData ? (
-          <Link href={`/profile/${userData.id}`}>
+          <Link href={`/profile/${userData[0].id}`}>
             <a className="d-flex align-center">
               <Avatar
                 className={styles.avatar}

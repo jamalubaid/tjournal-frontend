@@ -17,8 +17,6 @@ interface FullPostProps {
 }
 
 export const FullPost: React.FC<FullPostProps> = ({ title, blocks, user }) => {
-  console.log(user);
-
   return (
     <Paper elevation={0} className={styles.paper}>
       <div className="container">

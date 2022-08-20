@@ -10,8 +10,6 @@ interface FullPostPageProps {
 }
 
 const FullPostPage: NextPage<FullPostPageProps> = ({ post }) => {
-  console.log(post);
-
   return (
     <MainLayout className="mb-50" contentFullWidth>
       <FullPost title={post.title} blocks={post.body} user={post.user} />

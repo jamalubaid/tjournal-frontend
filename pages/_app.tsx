@@ -29,8 +29,8 @@ function App({ Component, pageProps }) {
       </Head>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-          <Header />
-          <Component {...pageProps} />
+        <Header />
+        <Component {...pageProps} />
       </MuiThemeProvider>
     </>
   );
@@ -43,17 +43,16 @@ App.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Compon
     store.dispatch(setUserData(userData));
   } catch (err) {
     if (ctx.asPath === '/write') {
-      ctx.res.writeHead(303, {
+      ctx?.res?.writeHead(303, {
         Location: '/403',
       });
       ctx.res.end();
     }
   }
 
-
   return {
-    pageProps: Component.getInitialProps ? await Component.getInitialProps( {...ctx, store} ) : {}
+    pageProps: Component.getInitialProps ? await Component.getInitialProps({ ...ctx, store }) : {},
   };
-})
+});
 
 export default wrapper.withRedux(App);

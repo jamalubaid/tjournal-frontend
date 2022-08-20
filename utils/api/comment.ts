@@ -13,7 +13,6 @@ export const CommentApi = (instance: AxiosInstance) => ({
     return data;
   },
   async create(dto: CreateCommentDto) {
-    console.log(dto);
     const { data } = await instance.post<CreateCommentDto, { data: CommentItem }>('/comments', dto);
     return data;
   },
