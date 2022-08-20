@@ -59,6 +59,7 @@ export const Header: React.FC<PaperProps> = () => {
       console.warn('error', err);
     }
   };
+  console.log(userData);
 
   return (
     <Paper classes={{ root: styles.root }} elevation={0}>
@@ -78,7 +79,7 @@ export const Header: React.FC<PaperProps> = () => {
           {posts?.length > 0 && (
             <Paper className={styles.searchBlockPopup}>
               <List>
-                {posts.map((obj) => (
+                {posts?.map((obj) => (
                   <Link key={obj.id} href={`/news/${obj.id}`}>
                     <a>
                       <ListItem button>{obj.title}</ListItem>
@@ -99,23 +100,25 @@ export const Header: React.FC<PaperProps> = () => {
         </Link>
       </div>
       <div className="d-flex align-center">
-        <IconButton onClick={openAuthDialog}>
-          <MessageIcon />
-        </IconButton>
-        <IconButton>
-          <NotificationIcon />
-        </IconButton>
         {userData ? (
-          <Link href={`/profile/${userData[0].id}`}>
-            <a className="d-flex align-center">
-              <Avatar
-                className={styles.avatar}
-                alt="Remy Sharp"
-                src="https://leonardo.osnova.io/5ffeac9a-a0e5-5be6-98af-659bfaabd2a6/-/scale_crop/108x108/-/format/webp/"
-              />
-              <ArrowBottom />
-            </a>
-          </Link>
+          <>
+            <IconButton onClick={openAuthDialog}>
+              <MessageIcon />
+            </IconButton>
+            <IconButton>
+              <NotificationIcon />
+            </IconButton>
+            <Link href={`/profile/${userData.id ? userData.id : userData[0].id}`}>
+              <a className="d-flex align-center">
+                <Avatar
+                  className={styles.avatar}
+                  alt="Remy Sharp"
+                  src="https://leonardo.osnova.io/5ffeac9a-a0e5-5be6-98af-659bfaabd2a6/-/scale_crop/108x108/-/format/webp/"
+                />
+                <ArrowBottom />
+              </a>
+            </Link>
+          </>
         ) : (
           <div className={styles.loginButton} onClick={openAuthDialog}>
             <UserIcon />

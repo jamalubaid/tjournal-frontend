@@ -38,7 +38,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ onClose, setAuthVisible, visibl
             )}
           </Typography>
           {formType === 'main' && <Main onMain={() => setFormType('email')} />}
-          {formType === 'email' && <Login onLogin={() => setFormType('register')} />}
+          {formType === 'email' && <Login onLogin={() => setFormType('register')} setAuthVisible={setAuthVisible} />}
           {formType === 'register' && (
             <Register
               onOpenRegister={() => setFormType('register')}

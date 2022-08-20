@@ -1,5 +1,7 @@
 import { Button, Divider, Paper, TextField, Typography } from '@material-ui/core';
+import { GetServerSideProps } from 'next';
 import { MainLayout } from '../../layouts/MainLayout';
+import { Api } from '../../utils/api';
 
 export default function Settings() {
   return (
@@ -20,3 +22,33 @@ export default function Settings() {
     </MainLayout>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  try {
+    const user = await Api(ctx).user.getMe();
+
+    if (!user[0].id) {
+      return {
+        props: {},
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      };
+    }
+
+    return {
+      props: {},
+    };
+  } catch (error) {
+    console.log('profileError', error);
+
+    return {
+      props: {},
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+};

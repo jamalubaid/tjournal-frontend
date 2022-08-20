@@ -10,25 +10,32 @@ import { FormField } from '../../FormField';
 import { LoginUserDto } from '../../../utils/api/types';
 import { setCookie } from 'nookies';
 import { Api } from '../../../utils/api';
+import { useAppDispatch } from '../../../redux/hooks';
+import { setUserData } from '../../../redux/slices/user';
 
 interface LoginFormProps {
   onLogin: () => void;
+  setAuthVisible: (data: boolean) => void;
 }
 
-const Login: React.FC<LoginFormProps> = ({ onLogin }) => {
+const Login: React.FC<LoginFormProps> = ({ onLogin, setAuthVisible }) => {
   const [errorMessage, setErrorMessage] = useState(false);
   const form = useForm({
     mode: 'onChange',
     resolver: yupResolver(LoginFormSchema),
   });
+  const dispatch = useAppDispatch();
 
   const onSubmit = async (dto: LoginUserDto) => {
     try {
-      const data = await Api().user.login(dto)
+      const data = await Api().user.login(dto);
       setCookie(null, 'rtoken', data.token, {
         maxAge: 30 * 24 * 60 * 60,
         path: '/',
       });
+
+      dispatch(setUserData(data));
+      setAuthVisible(false);
     } catch (error) {
       console.warn('Register error', error);
       if (error.response) {
@@ -36,7 +43,6 @@ const Login: React.FC<LoginFormProps> = ({ onLogin }) => {
       }
     }
   };
-
 
   return (
     <FormProvider {...form}>
