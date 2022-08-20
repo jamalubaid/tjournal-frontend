@@ -62,7 +62,7 @@ const Register: React.FC<RegisterFormProps> = ({ onOpenRegister, setAuthVisible,
               variant="contained"
               fullWidth
             >
-              Зарегистрация
+              Зарегистрироваться
             </Button>
             <Button onClick={onOpenLogin} className="mt-20" color="primary" variant="text" fullWidth>
               Войти
