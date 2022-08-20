@@ -10,8 +10,8 @@ export type RegisterUserDto = {
 } & LoginUserDto;
 
 export type ResponseCreateUser = {
-  createAt?: string;
-  updateAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
   email: string;
   fullName: string;
   commentsCount?: number;

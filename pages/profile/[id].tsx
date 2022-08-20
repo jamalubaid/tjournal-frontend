@@ -6,8 +6,15 @@ import { Post } from '../../components/Post';
 import { MainLayout } from '../../layouts/MainLayout';
 import { useAppSelector } from '../../redux/hooks';
 import { selectUserData } from '../../redux/slices/user';
+import { Api } from '../../utils/api';
+import { GetServerSideProps, NextPage } from 'next';
+import { PostItem } from '../../utils/api/types';
 
-export default function Profile() {
+interface IPostProps {
+  post: PostItem;
+}
+
+const Profile: NextPage<IPostProps> = ({ post }) => {
   const userData = useAppSelector(selectUserData);
   return (
     <MainLayout contentFullWidth hideComments>
@@ -19,7 +26,7 @@ export default function Profile() {
               src="https://leonardo.osnova.io/5ffeac9a-a0e5-5be6-98af-659bfaabd2a6/-/scale_crop/108x108/-/format/webp/"
             />
             <Typography style={{ fontWeight: 'bold' }} className="mt-10" variant="h4">
-              {userData.fullName}
+              {userData[0].fullName}
             </Typography>
           </div>
           <div>
@@ -36,11 +43,11 @@ export default function Profile() {
         </div>
         <div className="d-flex mb-10 mt-10">
           <Typography style={{ fontWeight: 'bold', color: '#35AB66' }} className="mr-15">
-            +208
+            +{userData[0].commentsCount * 2}
           </Typography>
           <Typography>2 подписчика</Typography>
         </div>
-        <Typography>На проекте с 15 сен 2016</Typography>
+        <Typography>На проекте с {userData[0].createdAt.slice(0, 10)}</Typography>
 
         <Tabs className="mt-20" value={0} indicatorColor="primary" textColor="primary">
           <Tab label="Статьи" />
@@ -48,9 +55,10 @@ export default function Profile() {
           <Tab label="Закладки" />
         </Tabs>
       </Paper>
+
       <div className="d-flex align-start">
         <div className="mr-20 flex">
-
+          <Post {...post} />
         </div>
         <Paper style={{ width: 300 }} className="p-20 mb-20" elevation={0}>
           <b>Подписчики</b>
@@ -68,4 +76,41 @@ export default function Profile() {
       </div>
     </MainLayout>
   );
-}
+};
+
+export default Profile;
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  try {
+    const id = ctx.params.id;
+    const post = await Api(ctx).post.getOne(+id);
+    const user = await Api(ctx).user.getMe();
+    console.log(user, post.user.id);
+
+    if (post.user.id !== user[0].id) {
+      return {
+        props: {},
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      };
+    }
+
+    return {
+      props: {
+        post,
+      },
+    };
+  } catch (error) {
+    console.log('profileError', error);
+
+    return {
+      props: {},
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+};

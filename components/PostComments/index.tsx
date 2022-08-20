@@ -28,7 +28,7 @@ export const PostComments: React.FC<IPostCommentsProps> = ({ postId }) => {
     <Paper elevation={0} className="mt-40 p-30">
       <div className="container">
         <Typography variant="h6" className="mb-20">
-          42 комментария
+          {comments.length} комментарий
         </Typography>
         <Tabs
           onChange={(_, newValur) => setActiveTab(newValur)}
