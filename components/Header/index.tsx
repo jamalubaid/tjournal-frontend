@@ -59,7 +59,6 @@ export const Header: React.FC<PaperProps> = () => {
       console.warn('error', err);
     }
   };
-  console.log(userData);
 
   return (
     <Paper classes={{ root: styles.root }} elevation={0}>

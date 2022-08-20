@@ -57,9 +57,7 @@ const Profile: NextPage<IPostProps> = ({ post }) => {
       </Paper>
 
       <div className="d-flex align-start">
-        <div className="mr-20 flex">
-          <Post {...post} />
-        </div>
+        <div className="mr-20 flex">{post && <Post {...post} />}</div>
         <Paper style={{ width: 300 }} className="p-20 mb-20" elevation={0}>
           <b>Подписчики</b>
           <div className="d-flex mt-15">
@@ -85,9 +83,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const id = ctx.params.id;
     const post = await Api(ctx).post.getOne(+id);
     const user = await Api(ctx).user.getMe();
-    console.log(user, post.user.id);
 
-    if (post.user.id !== user[0].id) {
+    if (!post && post.user.id !== user[0].id) {
       return {
         props: {},
         redirect: {
@@ -107,10 +104,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     return {
       props: {},
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
+      // redirect: {
+      //   destination: '/',
+      //   permanent: false,
+      // },
     };
   }
 };
