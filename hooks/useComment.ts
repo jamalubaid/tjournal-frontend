@@ -17,7 +17,7 @@ export const useComments = (postId?: number): UseCommentsProps => {
         setComments(arr);
       } catch (error) {
         console.warn('Error comment', error);
-        alert('Не удалось добавить комментарий');
+        console.log('Не удалось добавить комментарий');
       }
     })();
   }, []);

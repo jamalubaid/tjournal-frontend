@@ -33,15 +33,13 @@ const Register: React.FC<RegisterFormProps> = ({ onOpenRegister, setAuthVisible,
         maxAge: 30 * 24 * 60 * 60,
         path: '/',
       });
-      console.log(data);
-      
       setErrorMessage('');
       dispatch(setUserData(data));
       setAuthVisible(false);
     } catch (error) {
       console.warn('Register error', error);
       if (error.response) {
-        setErrorMessage(error.response.data.message);
+        setErrorMessage(error.response.data?.message);
       }
     }
   };

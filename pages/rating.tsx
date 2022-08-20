@@ -38,7 +38,7 @@ const Rating: NextPage<RatingProps> = ({ users }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((obj) => {
+            {users?.map((obj) => {
               return (
                 <TableRow key={obj.id}>
                   <TableCell component="th" scope="row">
