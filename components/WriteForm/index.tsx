@@ -15,7 +15,7 @@ let Editor = dynamic(
 );
 
 interface WriteFormProps {
-  data: PostItem;
+  data?: PostItem;
 }
 
 export const WriteForm: React.FC<WriteFormProps> = ({ data }) => {
