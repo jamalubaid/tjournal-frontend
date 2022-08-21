@@ -52,7 +52,6 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ onClose, setAuthVisible, visibl
         <Button autoFocus onClick={onClose}>
           Cancel
         </Button>
-        <Button onClick={onClose}>Subscribe</Button>
       </DialogActions>
     </Dialog>
   );
