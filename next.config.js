@@ -5,5 +5,6 @@ module.exports = {
   },
   env: {
     URL: process.env.NEXT_PUBLIC_URL,
+    LOCAL_URL: process.env.NEXT_PUBLIC_LOCAL_URL,
   },
 };

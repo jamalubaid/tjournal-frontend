@@ -8,14 +8,16 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectUserData } from '../../redux/slices/user';
 import { Api } from '../../utils/api';
 import { GetServerSideProps, NextPage } from 'next';
-import { PostItem } from '../../utils/api/types';
+import { PostItem, ResponseCreateUser } from '../../utils/api/types';
 
 interface IPostProps {
   post: PostItem;
+  user: ResponseCreateUser;
 }
 
-const Profile: NextPage<IPostProps> = ({ post }) => {
+const Profile: NextPage<IPostProps> = ({ post, user }) => {
   const userData = useAppSelector(selectUserData);
+
   return (
     <MainLayout contentFullWidth hideComments>
       <Paper className="pl-20 pr-20 pt-20 mb-30" elevation={0}>
@@ -35,6 +37,7 @@ const Profile: NextPage<IPostProps> = ({ post }) => {
                 <SettingsIcon />
               </Button>
             </Link>
+
             <Button style={{ height: 42 }} variant="contained" color="primary">
               <MessageIcon className="mr-10" />
               Написать
@@ -97,6 +100,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     return {
       props: {
         post,
+        user,
       },
     };
   } catch (error) {

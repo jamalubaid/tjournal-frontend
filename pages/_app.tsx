@@ -46,7 +46,7 @@ App.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Compon
       ctx?.res?.writeHead(303, {
         Location: '/403',
       });
-      ctx.res.end();
+      ctx.res?.end();
     }
   }
 

@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { LoginUserDto, RegisterUserDto, ResponseCreateUser } from './types';
+import { LoginUserDto, RegisterUserDto, ResponseCreateUser, UpdateUserDto } from './types';
 
 export const UserApi = (instance: AxiosInstance) => ({
   async getAll() {
@@ -16,6 +16,10 @@ export const UserApi = (instance: AxiosInstance) => ({
   },
   async getMe() {
     const { data } = await instance.get<ResponseCreateUser>('/users/me');
+    return data;
+  },
+  async update(dto: UpdateUserDto) {
+    const { data } = await instance.patch(`/users/me`, dto);
     return data;
   },
 });

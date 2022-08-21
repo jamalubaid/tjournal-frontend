@@ -5,6 +5,12 @@ export type LoginUserDto = {
   password: string;
 };
 
+export type UpdateUserDto = {
+  fullName: string;
+  password: string;
+  id?: number;
+};
+
 export type RegisterUserDto = {
   fullName: string;
 } & LoginUserDto;
@@ -18,6 +24,7 @@ export type ResponseCreateUser = {
   comments?: CommentItem[];
   id?: number;
   token?: string;
+  password?: string;
 };
 
 export type PostItem = {

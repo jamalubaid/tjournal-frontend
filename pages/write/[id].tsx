@@ -19,34 +19,34 @@ const WritePage: NextPage<IPostProps> = ({ post }) => {
 
 export default WritePage;
 
-export const getServerSideProps: GetServerSideProps = async ctx => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   try {
     const id = ctx.params.id;
     const post = await Api(ctx).post.getOne(+id);
     const user = await Api(ctx).user.getMe();
 
-    if (post.user.id !== user.id) {
+    if (!post && post.user.id !== user.id) {
       return {
         props: {},
         redirect: {
           destination: '/',
           permanent: false,
-        }
-      }
+        },
+      };
     }
 
     return {
       props: {
-        post
-      }
-    }
+        post,
+      },
+    };
   } catch (error) {
     return {
-      props: {}, 
+      props: {},
       redirect: {
         destination: '/',
         permanent: false,
-      }
-    }
+      },
+    };
   }
-}
+};

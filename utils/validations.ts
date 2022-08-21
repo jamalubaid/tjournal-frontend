@@ -11,3 +11,8 @@ export const RegisterFormSchema = yup
     fullName: yup.string().required('Имя и фамилия обязательны'),
   })
   .concat(LoginFormSchema);
+
+export const UpdateFormSchema = yup.object().shape({
+  fullName: yup.string().required('Имя и фамилия обязательны'),
+  password: yup.string().min(6, 'Пароль должен быть не менее 6 символов').required('Пароль обязательный'),
+});

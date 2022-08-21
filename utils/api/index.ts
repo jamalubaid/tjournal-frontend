@@ -16,7 +16,7 @@ export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiRetur
   const token = cookies.rtoken;
 
   const instance = axios.create({
-    baseURL: process.env.URL,
+    baseURL: process.env.LOCAL_URL,
     headers: {
       Authorization: 'Bearer ' + token,
     },

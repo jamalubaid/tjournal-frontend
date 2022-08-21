@@ -107,7 +107,7 @@ export const Header: React.FC<PaperProps> = () => {
             <IconButton>
               <NotificationIcon />
             </IconButton>
-            <Link href={`/profile/${userData.id ? userData.id : userData[0].id}`}>
+            <Link href={`/profile/${userData.id ? userData.id : userData[0]?.id}`}>
               <a className="d-flex align-center">
                 <Avatar
                   className={styles.avatar}
