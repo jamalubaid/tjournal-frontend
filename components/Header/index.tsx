@@ -100,7 +100,7 @@ export const Header: React.FC<PaperProps> = () => {
       </div>
 
       <div className="d-flex align-center">
-        {userData.id || userData[0]?.id ? (
+        {userData?.id || userData[0]?.id ? (
           <>
             <IconButton onClick={openAuthDialog}>
               <MessageIcon />
