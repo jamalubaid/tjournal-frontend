@@ -39,7 +39,7 @@ export const Header: React.FC<PaperProps> = () => {
   const openAuthDialog = () => {
     setAuthVisible(true);
   };
-
+  // Добавить функционал вызода
   const closeAuthDialog = () => {
     setAuthVisible(false);
   };
@@ -98,8 +98,9 @@ export const Header: React.FC<PaperProps> = () => {
           </a>
         </Link>
       </div>
+
       <div className="d-flex align-center">
-        {userData ? (
+        {userData.id || userData[0]?.id ? (
           <>
             <IconButton onClick={openAuthDialog}>
               <MessageIcon />
