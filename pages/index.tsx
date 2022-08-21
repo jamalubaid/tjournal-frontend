@@ -9,6 +9,8 @@ export interface IPostProps {
 }
 
 const Home: NextPage<IPostProps> = ({ posts }) => {
+  console.log(posts);
+
   return (
     <MainLayout>
       {posts?.map((obj) => (

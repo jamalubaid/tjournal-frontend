@@ -7,7 +7,7 @@ import styles from './Post.module.scss';
 import { PostActions } from '../PostActions';
 import { PostItem } from '../../utils/api/types';
 
-export const Post: React.FC<PostItem> = ({ title, description, imageUrl, id }) => {
+export const Post: React.FC<PostItem> = ({ title, description, imageUrl, id, body }) => {
   return (
     <Paper elevation={0} className="p-20" classes={{ root: styles.paper }}>
       <Typography variant="h5" className={styles.title}>
@@ -16,7 +16,11 @@ export const Post: React.FC<PostItem> = ({ title, description, imageUrl, id }) =
         </Link>
       </Typography>
       <div className={styles.text}>
-        <Typography className="mt-10 mb-15" dangerouslySetInnerHTML={{ __html: description }} />
+        {body.map((obj) => {
+          return (
+            <Typography key={obj.id} className="mt-10 mb-15" dangerouslySetInnerHTML={{ __html: obj.data.text }} />
+          );
+        })}
       </div>
       {imageUrl && (
         <img
