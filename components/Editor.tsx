@@ -2,6 +2,7 @@ import EditorJS, { OutputData } from '@editorjs/editorjs';
 import ImageTool from '@editorjs/image';
 import { FC, useEffect } from 'react';
 
+
 interface IEditorProps {
   onChange?: (block: OutputData['blocks']) => void;
   initialBlock?: OutputData['blocks'];
@@ -21,7 +22,7 @@ export const Editor: FC<IEditorProps> = ({ onChange, initialBlock }) => {
         onChange(blocks);
       },
 
-      tools: {
+      /*tools: {
         image: {
           class: ImageTool,
           config: {
@@ -31,8 +32,7 @@ export const Editor: FC<IEditorProps> = ({ onChange, initialBlock }) => {
             },
           },
         },
-      },
-
+      },*/
     });
   }, []);
 
