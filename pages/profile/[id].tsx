@@ -1,9 +1,17 @@
-import { Avatar, Button, Paper, Tab, Tabs, Typography } from '@material-ui/core';
-import { TextsmsOutlined as MessageIcon, SettingsOutlined as SettingsIcon } from '@material-ui/icons';
+﻿import {
+  Avatar,
+  Button,
+  Paper,
+  Tab,
+  Tabs,
+  Typography,
+} from '@material-ui/core';
+import {
+  TextsmsOutlined as MessageIcon,
+  SettingsOutlined as SettingsIcon,
+} from '@material-ui/icons';
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
-
-
 
 import { Post } from '../../components/Post';
 import { MainLayout } from '../../layouts/MainLayout';
@@ -11,7 +19,6 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectUserData } from '../../redux/slices/user';
 import { Api } from '../../utils/api';
 import { PostItem, ResponseCreateUser } from '../../utils/api/types';
-
 
 interface IPostProps {
   post: PostItem;
