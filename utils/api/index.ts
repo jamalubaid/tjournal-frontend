@@ -19,7 +19,7 @@ export const Api = (
   const token = cookies.rtoken;
 
   const instance = axios.create({
-    baseURL: process.env.LOCAL_URL,
+    baseURL: process.env.URL,
     headers: {
       Authorization: 'Bearer ' + token,
     },
