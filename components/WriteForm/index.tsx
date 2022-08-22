@@ -1,45 +1,47 @@
-import React, { useState } from 'react';
 import { Button, Input } from '@material-ui/core';
-import styles from './WriteForm.module.scss';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { FC, useState } from 'react';
+
 import { Api } from '../../utils/api';
 import { PostItem } from '../../utils/api/types';
-import { useRouter } from 'next/router';
+
+import styles from './WriteForm.module.scss';
 
 let Editor = dynamic(
   () =>
     import('../Editor').then((m) => {
       return m.Editor;
     }),
-  { ssr: false },
+  { ssr: false }
 );
 
 interface WriteFormProps {
   data?: PostItem;
 }
 
-export const WriteForm: React.FC<WriteFormProps> = ({ data }) => {
-  const [isLoading, setIsloading] = useState(false);
+export const WriteForm: FC<WriteFormProps> = ({ data }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState(data?.title || '');
   const [blocks, setBlocks] = useState(data?.body || []);
-  const router = useRouter();
+  const { push } = useRouter();
 
   const onAddPost = async () => {
     try {
-      setIsloading(true);
+      setIsLoading(true);
       const obj = {
         title,
         body: blocks,
       };
       if (!data) {
         const post = await Api().post.create(obj);
-        router.push(`/write/${post.id}`);
+        push(`/write/${post.id}`).catch();
       } else {
         await Api().post.update(obj, data.id);
       }
     } catch (error) {
     } finally {
-      setIsloading(true);
+      setIsLoading(true);
     }
   };
 

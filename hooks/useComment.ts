@@ -1,16 +1,20 @@
-import React, { SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+
+
+
 import { Api } from '../utils/api';
 import { CommentItem } from '../utils/api/types';
 
+
 type UseCommentsProps = {
   comments: CommentItem[];
-  setComments: React.Dispatch<SetStateAction<CommentItem[]>>;
+  setComments: Dispatch<SetStateAction<CommentItem[]>>;
 };
 
 export const useComments = (postId?: number): UseCommentsProps => {
-  const [comments, setComments] = React.useState<CommentItem[]>([]);
+  const [comments, setComments] = useState<CommentItem[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     (async () => {
       try {
         const arr = await Api().comment.getAll(postId);

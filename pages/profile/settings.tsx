@@ -1,9 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Divider, Paper, TextField, Typography } from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
-import { GetServerSideProps, NextApiHandler, NextPage } from 'next';
-import { useState } from 'react';
+import { Button, Divider, Paper, Typography } from '@material-ui/core';
+import { GetServerSideProps, NextPage } from 'next';
 import { FormProvider, useForm } from 'react-hook-form';
+
 import { FormField } from '../../components/FormField';
 import { MainLayout } from '../../layouts/MainLayout';
 import { useAppDispatch } from '../../redux/hooks';
@@ -35,7 +34,7 @@ const Settings: NextPage<ISettingsProps> = ({ user }) => {
         setUserData({
           ...obj,
           email: user[0].email,
-        }),
+        })
       );
     } catch (error) {
       console.warn('Не удалось обновить данные', error);

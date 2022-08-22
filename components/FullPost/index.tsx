@@ -6,17 +6,16 @@ import UserAddIcon from '@material-ui/icons/PersonAddOutlined';
 
 import styles from './FullPost.module.scss';
 import { OutputData } from '@editorjs/editorjs';
-import { useAppSelector } from '../../redux/hooks';
-import { selectUserData } from '../../redux/slices/user';
 import { ResponseCreateUser } from '../../utils/api/types';
 
 interface FullPostProps {
   title: string;
   blocks: OutputData['blocks'];
   user: ResponseCreateUser;
+  postId: number;
 }
 
-export const FullPost: React.FC<FullPostProps> = ({ title, blocks, user }) => {
+export const FullPost: FC<FullPostProps> = ({ title, blocks, user, postId }) => {
   return (
     <Paper elevation={0} className={styles.paper}>
       <div className="container">
@@ -28,7 +27,7 @@ export const FullPost: React.FC<FullPostProps> = ({ title, blocks, user }) => {
             <Typography key={obj.id} dangerouslySetInnerHTML={{ __html: obj.data.text }} />
           ))}
           <div style={{ width: 250, marginLeft: -14 }}>
-            <PostActions />
+            <PostActions postId={postId} />
           </div>
           <div className="d-flex justify-between align-center mt-30 mb-30">
             <div className={styles.userInfo}>

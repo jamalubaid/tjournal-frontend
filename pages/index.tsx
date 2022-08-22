@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+
 import { Post } from '../components/Post';
 import { MainLayout } from '../layouts/MainLayout';
 import { Api } from '../utils/api';
@@ -9,8 +10,6 @@ export interface IPostProps {
 }
 
 const Home: NextPage<IPostProps> = ({ posts }) => {
-  console.log(posts);
-
   return (
     <MainLayout>
       {posts?.map((obj) => (

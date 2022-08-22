@@ -5,20 +5,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { LoginFormSchema } from '../../../utils/validations';
 
-import styles from '../AuthDialog.module.scss';
 import { FormField } from '../../FormField';
 import { LoginUserDto } from '../../../utils/api/types';
 import { setCookie } from 'nookies';
 import { Api } from '../../../utils/api';
-import { useAppDispatch } from '../../../redux/hooks';
-import { setUserData } from '../../../redux/slices/user';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { selectAuthVisible, setAuthVisible, setUserData } from '../../../redux/slices/user';
 
 interface LoginFormProps {
   onLogin: () => void;
-  setAuthVisible: (data: boolean) => void;
 }
 
-const Login: React.FC<LoginFormProps> = ({ onLogin, setAuthVisible }) => {
+const Login: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [errorMessage, setErrorMessage] = useState(false);
   const form = useForm({
     mode: 'onChange',
@@ -35,7 +33,7 @@ const Login: React.FC<LoginFormProps> = ({ onLogin, setAuthVisible }) => {
       });
 
       dispatch(setUserData(data));
-      setAuthVisible(false);
+      dispatch(setAuthVisible(false));
     } catch (error) {
       console.warn('Register error', error);
       if (error.response) {

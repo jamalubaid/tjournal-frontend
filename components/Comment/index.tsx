@@ -1,10 +1,17 @@
-import React from 'react';
-import { Typography, IconButton, MenuItem, Menu, Avatar } from '@material-ui/core';
+import {
+  Avatar,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+} from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreHorizOutlined';
+import { FC, useState } from 'react';
+
+import { Api } from '../../utils/api';
+import { ResponseCreateUser } from '../../utils/api/types';
 
 import styles from './Comment.module.scss';
-import { ResponseCreateUser } from '../../utils/api/types';
-import { Api } from '../../utils/api';
 
 interface CommentPostProps {
   id: number;
@@ -15,8 +22,15 @@ interface CommentPostProps {
   onRemove: (id: number) => void;
 }
 
-export const Comment: React.FC<CommentPostProps> = ({ id, user, text, createAt, currentUserId, onRemove }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+export const Comment: FC<CommentPostProps> = ({
+  id,
+  user,
+  text,
+  createAt,
+  currentUserId,
+  onRemove,
+}) => {
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -55,9 +69,16 @@ export const Comment: React.FC<CommentPostProps> = ({ id, user, text, createAt, 
           <IconButton onClick={handleClick}>
             <MoreIcon />
           </IconButton>
-          <Menu anchorEl={anchorEl} elevation={2} open={Boolean(anchorEl)} onClose={handleClose} keepMounted>
+          <Menu
+            anchorEl={anchorEl}
+            elevation={2}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            keepMounted
+            disableScrollLock={true}
+            className={styles.item}
+          >
             <MenuItem onClick={handleClickRemove}>Удалить</MenuItem>
-            <MenuItem onClick={handleClose}>Редактировать</MenuItem>
           </Menu>
         </>
       )}

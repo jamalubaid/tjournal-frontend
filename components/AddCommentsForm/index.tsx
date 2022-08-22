@@ -2,7 +2,6 @@ import { Button, Input } from '@material-ui/core';
 import React from 'react';
 import { Api } from '../../utils/api';
 import { CommentItem } from '../../utils/api/types';
-import { IPostCommentsProps } from '../PostComments';
 
 import styles from './AddCommentsForm.module.scss';
 

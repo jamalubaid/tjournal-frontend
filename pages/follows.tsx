@@ -1,10 +1,13 @@
-import { Post } from '../components/Post';
+import { NextPage } from 'next';
+
 import { MainLayout } from '../layouts/MainLayout';
 
-export default function Home() {
+const Follows: NextPage = () => {
   return (
     <MainLayout>
       <div>Список подписок</div>
     </MainLayout>
   );
-}
+};
+
+export default Follows;

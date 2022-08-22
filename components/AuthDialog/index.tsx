@@ -1,4 +1,4 @@
-import React from 'react';
+import {FC, useState} from 'react';
 import {
   Button,
   Dialog,
@@ -19,13 +19,12 @@ import Register from './forms/Register';
 interface AuthDialogProps {
   onClose: () => void;
   visible: boolean;
-  setAuthVisible: (data: boolean) => void;
 }
 
-const AuthDialog: React.FC<AuthDialogProps> = ({ onClose, setAuthVisible, visible }) => {
-  const [formType, setFormType] = React.useState<'main' | 'email' | 'register'>('main');
+const AuthDialog: FC<AuthDialogProps> = ({ onClose, visible }) => {
+  const [formType, setFormType] = useState<'main' | 'email' | 'register'>('main');
   return (
-    <Dialog open={visible} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog open={visible} onClose={onClose} maxWidth="sm" fullWidth disableScrollLock={true}>
       <DialogContent>
         <div className={styles.content}>
           <Typography className={styles.title}>
@@ -38,13 +37,9 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ onClose, setAuthVisible, visibl
             )}
           </Typography>
           {formType === 'main' && <Main onMain={() => setFormType('email')} />}
-          {formType === 'email' && <Login onLogin={() => setFormType('register')} setAuthVisible={setAuthVisible} />}
+          {formType === 'email' && <Login onLogin={() => setFormType('register')} />}
           {formType === 'register' && (
-            <Register
-              onOpenRegister={() => setFormType('register')}
-              onOpenLogin={() => setFormType('email')}
-              setAuthVisible={setAuthVisible}
-            />
+            <Register onOpenRegister={() => setFormType('register')} onOpenLogin={() => setFormType('email')} />
           )}
         </div>
       </DialogContent>

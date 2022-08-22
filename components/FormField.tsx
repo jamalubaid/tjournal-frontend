@@ -1,5 +1,5 @@
 import { TextField } from '@material-ui/core';
-import React from 'react';
+import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 interface FormFieldProps {
@@ -7,7 +7,7 @@ interface FormFieldProps {
   label: string;
 }
 
-export const FormField: React.FC<FormFieldProps> = ({ name, label }) => {
+export const FormField: FC<FormFieldProps> = ({ name, label }) => {
   const { register, formState } = useFormContext();
   return (
     <TextField

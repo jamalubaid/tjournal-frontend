@@ -1,14 +1,17 @@
+import { Avatar, Button, Paper, Tab, Tabs, Typography } from '@material-ui/core';
+import { TextsmsOutlined as MessageIcon, SettingsOutlined as SettingsIcon } from '@material-ui/icons';
+import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
-import { Paper, Avatar, Typography, Button, Tabs, Tab } from '@material-ui/core';
-import { SettingsOutlined as SettingsIcon, TextsmsOutlined as MessageIcon } from '@material-ui/icons';
+
+
 
 import { Post } from '../../components/Post';
 import { MainLayout } from '../../layouts/MainLayout';
 import { useAppSelector } from '../../redux/hooks';
 import { selectUserData } from '../../redux/slices/user';
 import { Api } from '../../utils/api';
-import { GetServerSideProps, NextPage } from 'next';
 import { PostItem, ResponseCreateUser } from '../../utils/api/types';
+
 
 interface IPostProps {
   post: PostItem;
@@ -27,13 +30,20 @@ const Profile: NextPage<IPostProps> = ({ post, user }) => {
               style={{ width: 120, height: 120, borderRadius: 6 }}
               src="https://leonardo.osnova.io/5ffeac9a-a0e5-5be6-98af-659bfaabd2a6/-/scale_crop/108x108/-/format/webp/"
             />
-            <Typography style={{ fontWeight: 'bold' }} className="mt-10" variant="h4">
-              {userData[0].fullName}
+            <Typography
+              style={{ fontWeight: 'bold' }}
+              className="mt-10"
+              variant="h4"
+            >
+              {userData?.fullName}
             </Typography>
           </div>
           <div>
             <Link href="/profile/settings">
-              <Button style={{ height: 42, minWidth: 45, width: 45, marginRight: 10 }} variant="contained">
+              <Button
+                style={{ height: 42, minWidth: 45, width: 45, marginRight: 10 }}
+                variant="contained"
+              >
                 <SettingsIcon />
               </Button>
             </Link>
@@ -45,14 +55,22 @@ const Profile: NextPage<IPostProps> = ({ post, user }) => {
           </div>
         </div>
         <div className="d-flex mb-10 mt-10">
-          <Typography style={{ fontWeight: 'bold', color: '#35AB66' }} className="mr-15">
-            +{userData[0].commentsCount * 2}
+          <Typography
+            style={{ fontWeight: 'bold', color: '#35AB66' }}
+            className="mr-15"
+          >
+            +{userData?.commentsCount * 2}
           </Typography>
           <Typography>2 подписчика</Typography>
         </div>
-        <Typography>На проекте с {userData[0].createdAt.slice(0, 10)}</Typography>
+        <Typography>На проекте с {userData?.createdAt.slice(0, 10)}</Typography>
 
-        <Tabs className="mt-20" value={0} indicatorColor="primary" textColor="primary">
+        <Tabs
+          className="mt-20"
+          value={0}
+          indicatorColor="primary"
+          textColor="primary"
+        >
           <Tab label="Статьи" />
           <Tab label="Комментарии" />
           <Tab label="Закладки" />

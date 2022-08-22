@@ -1,8 +1,18 @@
-import { Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography, Tabs, Tab } from '@material-ui/core';
-
-import { MainLayout } from '../layouts/MainLayout';
-import { FollowButton } from '../components/FollowButton';
+import {
+  Paper,
+  Tab,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Tabs,
+  Typography,
+} from '@material-ui/core';
 import { NextPage } from 'next';
+
+import { FollowButton } from '../components/FollowButton';
+import { MainLayout } from '../layouts/MainLayout';
 import { Api } from '../utils/api';
 import { ResponseCreateUser } from '../utils/api/types';
 
@@ -14,14 +24,23 @@ const Rating: NextPage<RatingProps> = ({ users }) => {
   return (
     <MainLayout>
       <Paper className="pl-20 pt-20 pr-20 mb-20" elevation={0}>
-        <Typography variant="h5" style={{ fontWeight: 'bold', fontSize: 30, marginBottom: 6 }}>
+        <Typography
+          variant="h5"
+          style={{ fontWeight: 'bold', fontSize: 30, marginBottom: 6 }}
+        >
           Рейтинг сообществ и блогов
         </Typography>
         <Typography style={{ fontSize: 15 }}>
-          Десять лучших авторов и комментаторов, а также администраторы первых десяти сообществ из рейтинга по итогам
-          месяца бесплатно получают Plus-аккаунт на месяц.
+          Десять лучших авторов и комментаторов, а также администраторы первых
+          десяти сообществ из рейтинга по итогам месяца бесплатно получают
+          Plus-аккаунт на месяц.
         </Typography>
-        <Tabs className="mt-10" value={0} indicatorColor="primary" textColor="primary">
+        <Tabs
+          className="mt-10"
+          value={0}
+          indicatorColor="primary"
+          textColor="primary"
+        >
           <Tab label="Август" />
           <Tab label="За 3 месяца" />
           <Tab label="За всё время" />

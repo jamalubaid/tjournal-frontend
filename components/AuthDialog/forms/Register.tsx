@@ -1,5 +1,5 @@
 import { Button, TextField } from '@material-ui/core';
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { FormField } from '../../FormField';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,17 +8,15 @@ import { setCookie } from 'nookies';
 import { RegisterFormSchema } from '../../../utils/validations';
 import { RegisterUserDto } from '../../../utils/api/types';
 import { Api } from '../../../utils/api';
-import { useRouter } from 'next/router';
 import { useAppDispatch } from '../../../redux/hooks';
-import { setUserData } from '../../../redux/slices/user';
+import { setAuthVisible, setUserData } from '../../../redux/slices/user';
 
 interface RegisterFormProps {
   onOpenRegister: () => void;
   onOpenLogin: () => void;
-  setAuthVisible: (data: boolean) => void;
 }
 
-const Register: React.FC<RegisterFormProps> = ({ onOpenRegister, setAuthVisible, onOpenLogin }) => {
+const Register: FC<RegisterFormProps> = ({ onOpenRegister, onOpenLogin }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const form = useForm({
     mode: 'onChange',
@@ -35,7 +33,7 @@ const Register: React.FC<RegisterFormProps> = ({ onOpenRegister, setAuthVisible,
       });
       setErrorMessage('');
       dispatch(setUserData(data));
-      setAuthVisible(false);
+      dispatch(setAuthVisible(false));
     } catch (error) {
       console.warn('Register error', error);
       if (error.response) {

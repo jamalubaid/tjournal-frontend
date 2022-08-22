@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core';
-import React from 'react';
+import { FC } from 'react';
 
 import styles from '../AuthDialog.module.scss';
 
@@ -7,7 +7,7 @@ interface MainFormProps {
   onMain: () => void;
 }
 
-const Main: React.FC<MainFormProps> = ({ onMain }) => {
+const Main: FC<MainFormProps> = ({ onMain }) => {
   return (
     <div>
       <Button disabled className="mb-15" variant="contained" fullWidth>

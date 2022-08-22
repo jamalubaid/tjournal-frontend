@@ -1,19 +1,23 @@
-import React from 'react';
 import { Divider, Paper, Tab, Tabs, Typography } from '@material-ui/core';
-import { Comment } from '../Comment';
-import { AddCommentForm } from '../AddCommentsForm';
-import { CommentItem } from '../../utils/api/types';
+import { FC, useState } from "react";
+
+
+
+import { useComments } from '../../hooks/useComment';
 import { useAppSelector } from '../../redux/hooks';
 import { selectUserData } from '../../redux/slices/user';
-import { useComments } from '../../hooks/useComment';
+import { CommentItem } from '../../utils/api/types';
+import { AddCommentForm } from '../AddCommentsForm';
+import { Comment } from '../Comment';
+
 
 export interface IPostCommentsProps {
   postId?: number;
 }
 
-export const PostComments: React.FC<IPostCommentsProps> = ({ postId }) => {
+export const PostComments: FC<IPostCommentsProps> = ({ postId }) => {
   const userData = useAppSelector(selectUserData);
-  const [activeTab, setActiveTab] = React.useState(0);
+  const [activeTab, setActiveTab] = useState(0);
   const { comments, setComments } = useComments(postId);
 
   const onAddComment = (obj: CommentItem) => {
@@ -50,7 +54,7 @@ export const PostComments: React.FC<IPostCommentsProps> = ({ postId }) => {
             user={obj.user}
             text={obj.text}
             createAt={obj.createdAt}
-            currentUserId={userData?.id ? userData?.id : userData[0]?.id}
+            currentUserId={userData?.id}
             onRemove={onRemoveComment}
           />
         ))}

@@ -1,0 +1,16 @@
+{
+  "printWidth": 80,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "singleQuote": true,
+  "semi": true,
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "^app/components/(.*)$",
+    "^../(.*)",
+    "^./(.*)",
+    "^(.scss)$"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}

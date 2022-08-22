@@ -1,52 +1,54 @@
-import React from 'react';
-import Link from 'next/link';
 import {
-  Paper,
+  Avatar,
   Button,
   IconButton,
-  Avatar,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  PaperProps,
-  DialogContentText,
-  DialogActions,
   List,
   ListItem,
+  Paper,
+  PaperProps,
 } from '@material-ui/core';
 import {
-  SearchOutlined as SearchIcon,
-  SmsOutlined as MessageIcon,
   Menu as MenuIcon,
-  ExpandMoreOutlined as ArrowBottom,
+  SmsOutlined as MessageIcon,
   NotificationsNoneOutlined as NotificationIcon,
+  SearchOutlined as SearchIcon,
   AccountCircleOutlined as UserIcon,
 } from '@material-ui/icons';
+import Link from 'next/link';
+import { FC, useEffect, useState } from 'react';
+
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import {
+  selectAuthVisible,
+  selectUserData,
+  setAuthVisible,
+} from '../../redux/slices/user';
+import { Api } from '../../utils/api';
+import { PostItem } from '../../utils/api/types';
+import AuthDialog from '../AuthDialog';
+import ProfileDialog from '../ProfileDialog';
 
 import styles from './Header.module.scss';
-import AuthDialog from '../AuthDialog';
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import { selectUserData } from '../../redux/slices/user';
-import { PostItem } from '../../utils/api/types';
-import { Api } from '../../utils/api';
 
-export const Header: React.FC<PaperProps> = () => {
-  const userData = useSelector(selectUserData);
-  const [authVisible, setAuthVisible] = React.useState<boolean>(false);
-  const [searchValue, setSearchValue] = React.useState('');
-  const [posts, setPosts] = React.useState<PostItem[]>([]);
+export const Header: FC<PaperProps> = () => {
+  const userData = useAppSelector(selectUserData);
+  const [searchValue, setSearchValue] = useState('');
+  const [posts, setPosts] = useState<PostItem[]>([]);
+
+  const dispatch = useAppDispatch();
+  const authVisible = useAppSelector(selectAuthVisible);
+
   const openAuthDialog = () => {
-    setAuthVisible(true);
-  };
-  // Добавить функционал вызода
-  const closeAuthDialog = () => {
-    setAuthVisible(false);
+    dispatch(setAuthVisible(true));
   };
 
-  React.useEffect(() => {
+  const closeAuthDialog = () => {
+    dispatch(setAuthVisible(false));
+  };
+
+  useEffect(() => {
     if (userData && authVisible) {
-      setAuthVisible(false);
+      dispatch(setAuthVisible(false));
     }
   }, [userData, authVisible]);
 
@@ -61,73 +63,95 @@ export const Header: React.FC<PaperProps> = () => {
   };
 
   return (
-    <Paper classes={{ root: styles.root }} elevation={0}>
-      <div className="d-flex align-center">
-        <IconButton>
-          <MenuIcon />
-        </IconButton>
-        <Link href="/">
-          <a>
-            <img height={35} className="mr-20" src="/static/img/logo.svg" alt="Logo" />
-          </a>
-        </Link>
+    <>
+      <Paper classes={{ root: styles.root }} elevation={0}>
+        <div className="d-flex align-center">
+          <IconButton>
+            <MenuIcon />
+          </IconButton>
+          <Link href="/">
+            <a>
+              <img
+                height={35}
+                className="mr-20"
+                src="/static/img/logo.svg"
+                alt="Logo"
+              />
+            </a>
+          </Link>
 
-        <div className={styles.searchBlock}>
-          <SearchIcon />
-          <input value={searchValue} onChange={handleChangeInput} placeholder="Поиск" />
-          {posts?.length > 0 && (
-            <Paper className={styles.searchBlockPopup}>
-              <List>
-                {posts?.map((obj) => (
-                  <Link key={obj.id} href={`/news/${obj.id}`}>
-                    <a>
-                      <ListItem button>{obj.title}</ListItem>
-                    </a>
-                  </Link>
-                ))}
-              </List>
-            </Paper>
+          <div className={styles.searchBlock}>
+            <SearchIcon />
+            <input
+              value={searchValue}
+              onChange={handleChangeInput}
+              placeholder="Поиск"
+            />
+            {posts?.length > 0 && (
+              <Paper className={styles.searchBlockPopup}>
+                <List>
+                  {posts?.map((obj) => (
+                    <Link key={obj.id} href={`/news/${obj.id}`}>
+                      <a>
+                        <ListItem button>{obj.title}</ListItem>
+                      </a>
+                    </Link>
+                  ))}
+                </List>
+              </Paper>
+            )}
+          </div>
+
+          {userData ? (
+            <Link href="/write">
+              <a>
+                <Button variant="contained" className={styles.penButton}>
+                  Новая запись
+                </Button>
+              </a>
+            </Link>
+          ) : (
+            <Button
+              variant="contained"
+              className={styles.penButton}
+              onClick={openAuthDialog}
+            >
+              Новая запись
+            </Button>
           )}
         </div>
 
-        <Link href="/write">
-          <a>
-            <Button variant="contained" className={styles.penButton}>
-              Новая запись
-            </Button>
-          </a>
-        </Link>
-      </div>
+        <div className="d-flex align-center">
+          {userData?.id ? (
+            <>
+              <IconButton onClick={openAuthDialog}>
+                <MessageIcon />
+              </IconButton>
+              <IconButton>
+                <NotificationIcon />
+              </IconButton>
+              <Link href={`/profile/${userData?.id}`}>
+                <a className="d-flex align-center">
+                  <Avatar
+                    className={styles.avatar}
+                    alt="Remy Sharp"
+                    src="https://leonardo.osnova.io/5ffeac9a-a0e5-5be6-98af-659bfaabd2a6/-/scale_crop/108x108/-/format/webp/"
+                  />
+                </a>
+              </Link>
 
-      <div className="d-flex align-center">
-        {userData && userData?.id ? (
-          <>
-            <IconButton onClick={openAuthDialog}>
-              <MessageIcon />
-            </IconButton>
-            <IconButton>
-              <NotificationIcon />
-            </IconButton>
-            <Link href={`/profile/${userData.id ? userData.id : userData[0]?.id}`}>
-              <a className="d-flex align-center">
-                <Avatar
-                  className={styles.avatar}
-                  alt="Remy Sharp"
-                  src="https://leonardo.osnova.io/5ffeac9a-a0e5-5be6-98af-659bfaabd2a6/-/scale_crop/108x108/-/format/webp/"
-                />
-                <ArrowBottom />
-              </a>
-            </Link>
-          </>
-        ) : (
-          <div className={styles.loginButton} onClick={openAuthDialog}>
-            <UserIcon />
-            Войти
-          </div>
-        )}
+              <ProfileDialog />
+            </>
+          ) : (
+            <div className={styles.loginButton} onClick={openAuthDialog}>
+              <UserIcon />
+              Войти
+            </div>
+          )}
 
-        <AuthDialog onClose={closeAuthDialog} setAuthVisible={setAuthVisible} visible={authVisible} />
-      </div>
-    </Paper>
+          <AuthDialog onClose={closeAuthDialog} visible={authVisible} />
+        </div>
+      </Paper>
+    </>
   );
 };

@@ -1,9 +1,10 @@
-import Cookies, { parseCookies } from 'nookies';
 import axios from 'axios';
 import { GetServerSidePropsContext, NextPageContext } from 'next';
-import { UserApi } from './user';
-import { PostApi } from './post';
+import Cookies, { parseCookies } from 'nookies';
+
 import { CommentApi } from './comment';
+import { PostApi } from './post';
+import { UserApi } from './user';
 
 export type ApiReturnType = {
   user: ReturnType<typeof UserApi>;
@@ -11,7 +12,9 @@ export type ApiReturnType = {
   comment: ReturnType<typeof CommentApi>;
 };
 
-export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiReturnType => {
+export const Api = (
+  ctx?: NextPageContext | GetServerSidePropsContext
+): ApiReturnType => {
   const cookies = ctx ? Cookies.get(ctx) : parseCookies();
   const token = cookies.rtoken;
 

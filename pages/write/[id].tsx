@@ -1,5 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next';
-import React from 'react';
+
 import { WriteForm } from '../../components/WriteForm';
 import { MainLayout } from '../../layouts/MainLayout';
 import { Api } from '../../utils/api';

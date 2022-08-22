@@ -1,13 +1,13 @@
-import React from 'react';
-import Link from 'next/link';
 import { Paper, Typography } from '@material-ui/core';
-import Image from 'next/image';
+import Link from 'next/link';
+import { FC } from 'react';
+
+import { PostItem } from '../../utils/api/types';
+import { PostActions } from '../PostActions';
 
 import styles from './Post.module.scss';
-import { PostActions } from '../PostActions';
-import { PostItem } from '../../utils/api/types';
 
-export const Post: React.FC<PostItem> = ({ title, description, imageUrl, id, body }) => {
+export const Post: FC<PostItem> = ({ title, imageUrl, id, body }) => {
   return (
     <Paper elevation={0} className="p-20" classes={{ root: styles.paper }}>
       <Typography variant="h5" className={styles.title}>
@@ -18,7 +18,11 @@ export const Post: React.FC<PostItem> = ({ title, description, imageUrl, id, bod
       <div className={styles.text}>
         {body.map((obj) => {
           return (
-            <Typography key={obj.id} className="mt-10 mb-15" dangerouslySetInnerHTML={{ __html: obj.data.text }} />
+            <Typography
+              key={obj.id}
+              className="mt-10 mb-15"
+              dangerouslySetInnerHTML={{ __html: obj.data.text }}
+            />
           );
         })}
       </div>

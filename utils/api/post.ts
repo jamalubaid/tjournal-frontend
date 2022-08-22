@@ -1,5 +1,6 @@
 import { OutputData } from '@editorjs/editorjs';
 import { AxiosInstance } from 'axios';
+
 import { PostItem } from './types';
 
 type CreatePostDto = {
@@ -32,17 +33,23 @@ export const PostApi = (instance: AxiosInstance) => ({
       `/posts/${query.title.length ? 'search' : ''}`,
       {
         params: query,
-      },
+      }
     );
     return data;
   },
 
   async create(dto: CreatePostDto) {
-    const { data } = await instance.post<CreatePostDto, { data: PostItem }>('/posts', dto);
+    const { data } = await instance.post<CreatePostDto, { data: PostItem }>(
+      '/posts',
+      dto
+    );
     return data;
   },
   async update(dto: CreatePostDto, id: number) {
-    const { data } = await instance.patch<CreatePostDto, { data: PostItem }>(`/posts/${id}`, dto);
+    const { data } = await instance.patch<CreatePostDto, { data: PostItem }>(
+      `/posts/${id}`,
+      dto
+    );
     return data;
   },
 });

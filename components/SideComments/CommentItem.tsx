@@ -1,8 +1,15 @@
-import React from 'react';
-import styles from './SideComments.module.scss';
-import Link from 'next/link';
-import { PostItem, ResponseCreateUser } from '../../utils/api/types';
 import { Avatar } from '@material-ui/core';
+import Link from 'next/link';
+import { FC } from "react";
+
+
+
+import { PostItem, ResponseCreateUser } from '../../utils/api/types';
+
+
+
+import styles from './SideComments.module.scss';
+
 
 interface CommentItemProps {
   user: ResponseCreateUser;
@@ -10,7 +17,7 @@ interface CommentItemProps {
   post: PostItem;
 }
 
-export const CommentItem: React.FC<CommentItemProps> = ({ user, text, post }) => {
+export const CommentItem: FC<CommentItemProps> = ({ user, text, post }) => {
   return (
     <div className={styles.commentItem}>
       <div className={styles.userInfo}>

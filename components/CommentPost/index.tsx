@@ -1,12 +1,18 @@
-import React from 'react';
-import { IconButton, Menu, MenuItem, Paper, Typography } from '@material-ui/core';
+import {
+  IconButton,
+  Menu,
+  MenuItem,
+  Paper,
+  Typography,
+} from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { FC, useState } from 'react';
 
 import styles from './CommentPost.module.scss';
 
 interface CommentPostProps {
   user: {
-    fullname: string;
+    fullName: string;
   };
   text: string;
   post: {
@@ -14,8 +20,8 @@ interface CommentPostProps {
   };
 }
 
-export const CommentPost: React.FC<CommentPostProps> = ({ user, post, text }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+export const CommentPost: FC<CommentPostProps> = ({ user, post, text }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -44,7 +50,6 @@ export const CommentPost: React.FC<CommentPostProps> = ({ user, post, text }) =>
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>Удалить</MenuItem>
-        <MenuItem onClick={handleClose}>Редактировать</MenuItem>
       </Menu>
     </Paper>
   );
