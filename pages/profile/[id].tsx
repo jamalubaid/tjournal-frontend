@@ -109,10 +109,10 @@ export default Profile;
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   try {
     const id = ctx.params.id;
-    const post = await Api(ctx).post.getOne(+id);
-    const user = await Api(ctx).user.getMe();
+    const { user: userData } = await Api(ctx).post.getOne(+id);
+    const post = await Api(ctx).post.getOne(+userData.id);
 
-    if (!post && post.user.id !== user[0].id) {
+    if (!post && post.id !== +id) {
       return {
         props: {},
         redirect: {
@@ -123,10 +123,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
 
     return {
-      props: {
-        post,
-        user,
-      },
+      props: { post },
     };
   } catch (error) {
     console.log('profileError', error);

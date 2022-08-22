@@ -16,7 +16,7 @@ export const Post: FC<PostItem> = ({ title, imageUrl, id, body }) => {
         </Link>
       </Typography>
       <div className={styles.text}>
-        {body.map((obj) => {
+        {body?.map((obj) => {
           return (
             <Typography
               key={obj.id}
