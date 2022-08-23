@@ -6,6 +6,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreHorizOutlined';
+import Link from 'next/link';
 import { FC, useState } from 'react';
 
 import { Api } from '../../utils/api';
@@ -57,9 +58,13 @@ export const Comment: FC<CommentPostProps> = ({
   return (
     <div className={styles.comment}>
       <div className={styles.userInfo}>
-        <Avatar>{user.fullName[0]}</Avatar>
-        <b>{user.fullName}</b>
-        <span>{createAt}</span>
+        <Link href={`/profile/${user.id}`}>
+          <>
+            <Avatar>{user.fullName[0]}</Avatar>
+            <b>{user.fullName}</b>
+          </>
+        </Link>
+        <span>{createAt.slice(0, 10)}</span>
       </div>
       <Typography className={styles.text}>{text}</Typography>
 

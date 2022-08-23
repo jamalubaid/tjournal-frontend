@@ -46,7 +46,7 @@ export const WriteForm: FC<WriteFormProps> = ({ data }) => {
   };
 
   return (
-    <div>
+    <div className="container">
       <Input
         value={title}
         onChange={(e) => setTitle(e.target.value)}

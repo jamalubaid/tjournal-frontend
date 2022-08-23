@@ -12,10 +12,20 @@ import { FC } from 'react';
 import styles from './LeftMenu.module.scss';
 
 const menu = [
-  { text: 'Лента', icon: <FireIcon />, path: '/' },
-  { text: 'Сообщения', icon: <MessageIcon />, path: '/messages' },
-  { text: 'Рейтинг RJ', icon: <TrendingIcon />, path: '/rating' },
-  { text: 'Подписки', icon: <ListIcon />, path: '/follows' },
+  { text: 'Лента', icon: <FireIcon />, path: '/', disabled: false },
+  {
+    text: 'Сообщения',
+    icon: <MessageIcon />,
+    path: '/messages',
+    disabled: true,
+  },
+  {
+    text: 'Рейтинг RJ',
+    icon: <TrendingIcon />,
+    path: '/rating',
+    disabled: false,
+  },
+  { text: 'Подписки', icon: <ListIcon />, path: '/follows', disabled: true },
 ];
 
 export const LeftMenu: FC = () => {
@@ -26,16 +36,27 @@ export const LeftMenu: FC = () => {
       <ul>
         {menu.map((obj) => (
           <li key={obj.path}>
-            <Link href={obj.path}>
-              <a>
-                <Button
-                  variant={router.asPath === obj.path ? 'contained' : 'text'}
-                >
-                  {obj.icon}
-                  {obj.text}
-                </Button>
-              </a>
-            </Link>
+            {!obj.disabled ? (
+              <Link href={obj.path} draggable>
+                <a>
+                  <Button
+                    variant={router.asPath === obj.path ? 'contained' : 'text'}
+                    disabled={obj.disabled}
+                  >
+                    {obj.icon}
+                    {obj.text}
+                  </Button>
+                </a>
+              </Link>
+            ) : (
+              <Button
+                variant={router.asPath === obj.path ? 'contained' : 'text'}
+                disabled={obj.disabled}
+              >
+                {obj.icon}
+                {obj.text}
+              </Button>
+            )}
           </li>
         ))}
       </ul>

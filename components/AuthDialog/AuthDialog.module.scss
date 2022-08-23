@@ -1,7 +1,9 @@
 .content {
   width: 70%;
   margin: 30px auto;
-
+  @media (max-width: 767px) {
+    width: 100%;
+  }
   button {
     position: relative;
 

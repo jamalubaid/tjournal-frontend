@@ -30,8 +30,10 @@ a {
 
 .wrapper {
   display: flex;
-  padding: 0 30px;
-  padding-top: 80px;
+  padding: 80px 30px 0;
+  @media (max-width: 767px) {
+    padding: 80px 0 80px 0;
+  }
 }
 
 .main-layout-white {
@@ -39,7 +41,13 @@ a {
   height: 100vh;
 }
 
+@media (max-width: 1028px) {
+  .leftSide,
+  .rightSide {
+    display: none;
+  }
+}
+
 .container {
-  margin: 0 auto;
-  width: 680px;
+  padding: 0 30px;
 }

@@ -2,6 +2,7 @@ import {
   CssBaseline,
   LinearProgress,
   MuiThemeProvider,
+  useMediaQuery,
 } from '@material-ui/core';
 import 'macro-css';
 import Head from 'next/head';
@@ -9,6 +10,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import { Header } from '../components/Header';
+import BottomNavigation from '../components/Mobile/BottomNavigation';
 import { setUserData } from '../redux/slices/user';
 import { wrapper } from '../redux/store';
 import '../styles/globals.scss';
@@ -16,17 +18,13 @@ import { theme } from '../theme';
 import { Api } from '../utils/api';
 
 function App({ Component, pageProps }) {
-  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const isWideScreen = useMediaQuery('(max-width:767px)');
   useEffect(() => {
-    // Обработка начала загрузки
-    router.events.on('routeChangeStart', () => {
-      setLoading(true);
-    });
-    // Обработка окончания загрузки
-    router.events.on('routeChangeComplete', () => {
-      setLoading(false);
-    });
+    router.events.on('routeChangeStart', () => setLoading(true)); // Обработка начала загрузки
+    router.events.on('routeChangeComplete', () => setLoading(false)); // Обработка окончания загрузки
   }, []);
   return (
     <>
@@ -49,6 +47,7 @@ function App({ Component, pageProps }) {
         {loading && <LinearProgress color="primary" />}
         <Header />
         <Component {...pageProps} />
+        {isWideScreen && <BottomNavigation />}
       </MuiThemeProvider>
     </>
   );

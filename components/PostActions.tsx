@@ -33,17 +33,17 @@ export const PostActions: FC<IPostActionsProps> = ({ postId }) => {
         </a>
       </Link>
       <li>
-        <IconButton>
+        <IconButton disabled>
           <RepostIcon />
         </IconButton>
       </li>
       <li>
-        <IconButton>
+        <IconButton disabled>
           <FavoriteIcon />
         </IconButton>
       </li>
       <li>
-        <IconButton>
+        <IconButton disabled>
           <ShareIcon />
         </IconButton>
       </li>

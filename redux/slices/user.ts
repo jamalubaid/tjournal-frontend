@@ -7,11 +7,13 @@ import { RootState } from '../store';
 export interface UserState {
   data?: ResponseCreateUser | null;
   visibleAuthDialog?: boolean;
+  visibleMenuDialog?: boolean;
 }
 
 const initialState: UserState = {
   data: null,
   visibleAuthDialog: false,
+  visibleMenuDialog: false,
 };
 
 export const userSlice = createSlice({
@@ -23,6 +25,9 @@ export const userSlice = createSlice({
     },
     setAuthVisible: (state, action) => {
       state.visibleAuthDialog = action.payload;
+    },
+    setMenuVisible: (state, action) => {
+      state.visibleMenuDialog = action.payload;
     },
   },
   extraReducers: {
@@ -37,9 +42,12 @@ export const userSlice = createSlice({
 
 export const { setUserData } = userSlice.actions;
 export const { setAuthVisible } = userSlice.actions;
+export const { setMenuVisible } = userSlice.actions;
 
 export const selectUserData = (state: RootState) => state.user.data;
 export const selectAuthVisible = (state: RootState) =>
   state.user.visibleAuthDialog;
+export const selectMenuVisible = (state: RootState) =>
+  state.user.visibleMenuDialog;
 
 export const userReducer = userSlice.reducer;

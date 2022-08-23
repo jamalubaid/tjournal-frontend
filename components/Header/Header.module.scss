@@ -9,6 +9,14 @@
   height: 60px;
   margin-bottom: 14px;
   z-index: 1;
+
+  .right {
+    display: flex;
+    @media (max-width: 767px) {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
 }
 
 .logo {
@@ -35,7 +43,9 @@
   position: relative;
   margin-right: 15px;
   width: 310px;
-
+  @media (max-width: 767px) {
+    width: auto;
+  }
   svg {
     position: absolute;
     top: 8px;
@@ -67,6 +77,9 @@
   position: absolute !important;
   top: 40px;
   width: 310px;
+  @media (max-width: 767px) {
+    left: -70px;
+  }
 }
 
 .loginButton {

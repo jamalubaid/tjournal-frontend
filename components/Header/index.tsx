@@ -1,11 +1,13 @@
 import {
   Avatar,
   Button,
+  Hidden,
   IconButton,
   List,
   ListItem,
   Paper,
   PaperProps,
+  useMediaQuery,
 } from '@material-ui/core';
 import {
   Menu as MenuIcon,
@@ -26,6 +28,8 @@ import {
 import { Api } from '../../utils/api';
 import { PostItem } from '../../utils/api/types';
 import AuthDialog from '../AuthDialog';
+import EntryButton from '../EntryButton';
+import Menu from '../Mobile/Menu';
 import ProfileDialog from '../ProfileDialog';
 
 import styles from './Header.module.scss';
@@ -38,18 +42,13 @@ export const Header: FC<PaperProps> = () => {
   const dispatch = useAppDispatch();
   const authVisible = useAppSelector(selectAuthVisible);
 
-  const openAuthDialog = () => {
-    dispatch(setAuthVisible(true));
-  };
+  const isWideScreen = useMediaQuery('(max-width:767px)');
 
-  const closeAuthDialog = () => {
-    dispatch(setAuthVisible(false));
-  };
+  const openAuthDialog = () => dispatch(setAuthVisible(true));
+  const closeAuthDialog = () => dispatch(setAuthVisible(false));
 
   useEffect(() => {
-    if (userData && authVisible) {
-      dispatch(setAuthVisible(false));
-    }
+    if (userData && authVisible) dispatch(setAuthVisible(false));
   }, [userData, authVisible]);
 
   const handleChangeInput = async (e) => {
@@ -63,12 +62,10 @@ export const Header: FC<PaperProps> = () => {
   };
 
   return (
-    <>
-      <Paper classes={{ root: styles.root }} elevation={0}>
+    <Paper classes={{ root: styles.root }} elevation={0}>
+      <div className={styles.right}>
         <div className="d-flex align-center">
-          <IconButton>
-            <MenuIcon />
-          </IconButton>
+          <Menu />
           <Link href="/">
             <a>
               <img
@@ -79,7 +76,9 @@ export const Header: FC<PaperProps> = () => {
               />
             </a>
           </Link>
+        </div>
 
+        <div className="d-flex align-center">
           <div className={styles.searchBlock}>
             <SearchIcon />
             <input
@@ -102,34 +101,14 @@ export const Header: FC<PaperProps> = () => {
             )}
           </div>
 
-          {userData ? (
-            <Link href="/write">
-              <a>
-                <Button variant="contained" className={styles.penButton}>
-                  Новая запись
-                </Button>
-              </a>
-            </Link>
-          ) : (
-            <Button
-              variant="contained"
-              className={styles.penButton}
-              onClick={openAuthDialog}
-            >
-              Новая запись
-            </Button>
-          )}
+          <EntryButton />
         </div>
+      </div>
 
+      {!isWideScreen && (
         <div className="d-flex align-center">
           {userData?.id ? (
             <>
-              <IconButton onClick={openAuthDialog}>
-                <MessageIcon />
-              </IconButton>
-              <IconButton>
-                <NotificationIcon />
-              </IconButton>
               <Link href={`/profile/${userData?.id}`}>
                 <a className="d-flex align-center">
                   <Avatar
@@ -148,10 +127,9 @@ export const Header: FC<PaperProps> = () => {
               Войти
             </div>
           )}
-
-          <AuthDialog onClose={closeAuthDialog} visible={authVisible} />
         </div>
-      </Paper>
-    </>
+      )}
+      <AuthDialog onClose={closeAuthDialog} visible={authVisible} />
+    </Paper>
   );
 };

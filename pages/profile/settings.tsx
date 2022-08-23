@@ -1,6 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Divider, Paper, Typography } from '@material-ui/core';
+import { Check } from '@material-ui/icons';
 import { GetServerSideProps, NextPage } from 'next';
+import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { FormField } from '../../components/FormField';
@@ -20,6 +22,7 @@ const Settings: NextPage<ISettingsProps> = ({ user }) => {
     mode: 'onChange',
     resolver: yupResolver(UpdateFormSchema),
   });
+  const [success, setSuccess] = useState(false);
   const dispatch = useAppDispatch();
 
   const onSubmit = async (dto: UpdateUserDto) => {
@@ -36,6 +39,7 @@ const Settings: NextPage<ISettingsProps> = ({ user }) => {
           email: user[0].email,
         })
       );
+      setSuccess(true);
     } catch (error) {
       console.warn('Не удалось обновить данные', error);
     }
@@ -57,7 +61,14 @@ const Settings: NextPage<ISettingsProps> = ({ user }) => {
               color="primary"
               variant="contained"
             >
-              Сохранить изменения
+              {success ? (
+                <>
+                  <Check />
+                  Сохранения изменены
+                </>
+              ) : (
+                'Сохранить изменения'
+              )}
             </Button>
           </form>
         </FormProvider>

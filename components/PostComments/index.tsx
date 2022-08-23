@@ -1,7 +1,5 @@
 import { Divider, Paper, Tab, Tabs, Typography } from '@material-ui/core';
-import { FC, useState } from "react";
-
-
+import { FC, useState } from 'react';
 
 import { useComments } from '../../hooks/useComment';
 import { useAppSelector } from '../../redux/hooks';
@@ -9,7 +7,6 @@ import { selectUserData } from '../../redux/slices/user';
 import { CommentItem } from '../../utils/api/types';
 import { AddCommentForm } from '../AddCommentsForm';
 import { Comment } from '../Comment';
-
 
 export interface IPostCommentsProps {
   postId?: number;
@@ -42,10 +39,12 @@ export const PostComments: FC<IPostCommentsProps> = ({ postId }) => {
           textColor="primary"
         >
           <Tab label="Популярные" />
-          <Tab label="По порядку" />
+          <Tab label="По порядку" disabled />
         </Tabs>
         <Divider />
-        {userData && <AddCommentForm onSuccesAdd={onAddComment} postId={postId} />}
+        {userData && (
+          <AddCommentForm onSuccesAdd={onAddComment} postId={postId} />
+        )}
         <div className="mb-20" />
         {comments.map((obj) => (
           <Comment

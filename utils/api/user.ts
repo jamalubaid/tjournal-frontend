@@ -30,6 +30,10 @@ export const UserApi = (instance: AxiosInstance) => ({
     const { data } = await instance.get<ResponseCreateUser>('/users/me');
     return data;
   },
+  async getOne(id: number) {
+    const { data } = await instance.get<ResponseCreateUser>('/users/' + id);
+    return data;
+  },
   async update(dto: UpdateUserDto) {
     const { data } = await instance.patch(`/users/me`, dto);
     return data;

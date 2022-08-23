@@ -1,0 +1,18 @@
+.root {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.icon {
+  svg {
+    color: #000;
+    width: 32px;
+    height: 32px;
+  }
+  div {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+}
