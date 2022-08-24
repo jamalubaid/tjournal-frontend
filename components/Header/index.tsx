@@ -1,18 +1,5 @@
+import { Avatar, Paper, PaperProps, useMediaQuery } from '@material-ui/core';
 import {
-  Avatar,
-  Button,
-  Hidden,
-  IconButton,
-  List,
-  ListItem,
-  Paper,
-  PaperProps,
-  useMediaQuery,
-} from '@material-ui/core';
-import {
-  Menu as MenuIcon,
-  SmsOutlined as MessageIcon,
-  NotificationsNoneOutlined as NotificationIcon,
   SearchOutlined as SearchIcon,
   AccountCircleOutlined as UserIcon,
 } from '@material-ui/icons';
@@ -25,41 +12,33 @@ import {
   selectUserData,
   setAuthVisible,
 } from '../../redux/slices/user';
-import { Api } from '../../utils/api';
-import { PostItem } from '../../utils/api/types';
 import AuthDialog from '../AuthDialog';
 import EntryButton from '../EntryButton';
 import Menu from '../Mobile/Menu';
 import ProfileDialog from '../ProfileDialog';
+import { SearchBlock } from '../SearchBlock';
 
 import styles from './Header.module.scss';
 
 export const Header: FC<PaperProps> = () => {
-  const userData = useAppSelector(selectUserData);
-  const [searchValue, setSearchValue] = useState('');
-  const [posts, setPosts] = useState<PostItem[]>([]);
+  const [toggleSearchInput, setToggleSearchInput] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const authVisible = useAppSelector(selectAuthVisible);
+  const userData = useAppSelector(selectUserData);
 
   const isWideScreen = useMediaQuery('(max-width:767px)');
 
   const openAuthDialog = () => dispatch(setAuthVisible(true));
   const closeAuthDialog = () => dispatch(setAuthVisible(false));
 
+  const handleSearchInput = () => {
+    setToggleSearchInput(!toggleSearchInput);
+  };
+
   useEffect(() => {
     if (userData && authVisible) dispatch(setAuthVisible(false));
   }, [userData, authVisible]);
-
-  const handleChangeInput = async (e) => {
-    setSearchValue(e.target.value);
-    try {
-      const { items } = await Api().post.search({ title: e.target.value });
-      setPosts(items);
-    } catch (err) {
-      console.warn('error', err);
-    }
-  };
 
   return (
     <Paper classes={{ root: styles.root }} elevation={0}>
@@ -78,29 +57,14 @@ export const Header: FC<PaperProps> = () => {
           </Link>
         </div>
 
-        <div className="d-flex align-center">
-          <div className={styles.searchBlock}>
-            <SearchIcon />
-            <input
-              value={searchValue}
-              onChange={handleChangeInput}
-              placeholder="Поиск"
-            />
-            {posts?.length > 0 && (
-              <Paper className={styles.searchBlockPopup}>
-                <List>
-                  {posts?.map((obj) => (
-                    <Link key={obj.id} href={`/news/${obj.id}`}>
-                      <a>
-                        <ListItem button>{obj.title}</ListItem>
-                      </a>
-                    </Link>
-                  ))}
-                </List>
-              </Paper>
-            )}
-          </div>
-
+        <div className={styles.searchWrapper}>
+          {isWideScreen ? (
+            <SearchIcon onClick={handleSearchInput} className={styles.search} />
+          ) : (
+            <></>
+          )}
+          {isWideScreen && toggleSearchInput ? <SearchBlock /> : null}
+          {!isWideScreen ? <SearchBlock /> : null}
           <EntryButton />
         </div>
       </div>

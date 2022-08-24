@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 
-import { ResponseCreateUser } from '../../utils/api/types';
+import { PostItem, ResponseCreateUser } from '../../utils/api/types';
 import { RootState } from '../store';
 
 export interface UserState {

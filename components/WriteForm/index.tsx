@@ -57,11 +57,11 @@ export const WriteForm: FC<WriteFormProps> = ({ data }) => {
         <Editor initialBlock={blocks} onChange={(arr) => setBlocks(arr)} />
       </div>
       <Button
-        style={{ zIndex: 10 }}
         onClick={onAddPost}
         disabled={isLoading || !blocks.length}
         variant="contained"
         color="primary"
+        className={styles.button}
       >
         Опубликовать
       </Button>
