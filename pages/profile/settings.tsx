@@ -14,10 +14,11 @@ import { ResponseCreateUser, UpdateUserDto } from '../../utils/api/types';
 import { UpdateFormSchema } from '../../utils/validations';
 
 interface ISettingsProps {
-  user: ResponseCreateUser[];
+  user: ResponseCreateUser;
 }
 
 const Settings: NextPage<ISettingsProps> = ({ user }) => {
+  console.log(user)
   const form = useForm({
     mode: 'onChange',
     resolver: yupResolver(UpdateFormSchema),
@@ -29,14 +30,14 @@ const Settings: NextPage<ISettingsProps> = ({ user }) => {
     const obj = {
       fullName: dto.fullName,
       password: dto.password,
-      id: user[0].id,
+      id: user.id,
     };
     try {
       await Api().user.update(obj);
       dispatch(
         setUserData({
           ...obj,
-          email: user[0].email,
+          email: user.email,
         })
       );
       setSuccess(true);
@@ -82,16 +83,6 @@ export default Settings;
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   try {
     const user = await Api(ctx).user.getMe();
-    if (!user[0]?.id) {
-      return {
-        props: {},
-        redirect: {
-          destination: '/',
-          permanent: false,
-        },
-      };
-    }
-
     return {
       props: {
         user,

@@ -71,7 +71,7 @@ export const Header: FC<PaperProps> = () => {
 
       {!isWideScreen && (
         <div className="d-flex align-center">
-          {userData?.id ? (
+          {userData ? (
             <>
               <Link href={`/profile/${userData?.id}`}>
                 <a className="d-flex align-center">

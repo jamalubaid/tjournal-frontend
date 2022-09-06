@@ -33,7 +33,7 @@ const Profile: NextPage<IPostProps> = ({ post, user }) => {
   const userData = useAppSelector(selectUserData);
   const { push } = useRouter();
   const isWideScreen = useMediaQuery('(max-width:767px)');
-  console.log(post, user);
+  console.log(userData, user)
 
   const logout = () => {
     setCookie(null, 'rtoken', '', {
@@ -172,10 +172,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const id = ctx.params.id;
     const { user: userData } = await Api(ctx).post.getOne(+id);
     const post = await Api(ctx).post.getOne(+userData?.id);
-    const userOne = await Api(ctx).user?.getOne(+id);
+    const userOne = await Api(ctx).user.getOne(+id);
 
     return {
-      props: { post, user: userOne[0] },
+      props: { post, user: userOne },
     };
   } catch (error) {
     console.log('profileError', error);
