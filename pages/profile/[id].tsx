@@ -182,10 +182,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     return {
       props: {},
-      redirect: {
+/*      redirect: {
         destination: '/',
         permanent: false,
-      },
+      },*/
     };
   }
 };
