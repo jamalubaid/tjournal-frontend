@@ -7,7 +7,8 @@ import { Api } from '../../utils/api';
 import { PostItem } from '../../utils/api/types';
 
 import styles from './SearchBlock.module.scss';
-
+// Сделать функционал подписки
+// Пофиксить создание поста
 export const SearchBlock: FC<PaperProps> = () => {
   const [searchValue, setSearchValue] = useState('');
   const [posts, setPosts] = useState<PostItem[]>([]);
@@ -29,7 +30,7 @@ export const SearchBlock: FC<PaperProps> = () => {
   };
 
   const hideExceptSearchElem = (e) => {
-    if (!e.path.includes(setRef.current)) {
+    if (!e.path && !e?.path?.includes(setRef.current)) {
       setPosts([]);
     }
   };
