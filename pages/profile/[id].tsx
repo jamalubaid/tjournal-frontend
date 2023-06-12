@@ -20,21 +20,19 @@ import { setCookie } from 'nookies';
 import { Post } from '../../components/Post';
 import { MainLayout } from '../../layouts/MainLayout';
 import { useAppSelector } from '../../redux/hooks';
-import { selectUserData } from '../../redux/slices/user';
+import { selectUserData, setUserData } from '../../redux/slices/user';
+import { store } from '../../redux/store';
 import { Api } from '../../utils/api';
 import { PostItem, ResponseCreateUser } from '../../utils/api/types';
 
 interface IPostProps {
-  post: PostItem;
   user: ResponseCreateUser;
 }
 
-const Profile: NextPage<IPostProps> = ({ post, user }) => {
+const Profile: NextPage<IPostProps> = ({ user }) => {
   const userData = useAppSelector(selectUserData);
   const { push } = useRouter();
   const isWideScreen = useMediaQuery('(max-width:767px)');
-  console.log(userData, user)
-
   const logout = () => {
     setCookie(null, 'rtoken', '', {
       path: '/',
@@ -125,8 +123,8 @@ const Profile: NextPage<IPostProps> = ({ post, user }) => {
         <Typography>
           На проекте с
           {user?.id === userData?.id
-            ? userData?.createdAt.slice(0, 10)
-            : user?.createdAt.slice(0, 10)}
+            ? userData?.createdAt?.slice(0, 10)
+            : user?.createdAt?.slice(0, 10)}
         </Typography>
 
         <Tabs
@@ -143,7 +141,9 @@ const Profile: NextPage<IPostProps> = ({ post, user }) => {
 
       <div className="d-flex align-start">
         <div className={!isWideScreen ? 'mr-20 flex' : 'flex'}>
-          {post && <Post {...post} />}
+          {user?.id === userData?.id
+            ? userData?.posts?.map((post) => <Post key={post.id} {...post} />)
+            : user?.posts?.map((post) => <Post key={post.id} {...post} />)}
         </div>
         {!isWideScreen && (
           <Paper style={{ width: 300 }} className="p-20 mb-20" elevation={0}>
@@ -170,19 +170,19 @@ export default Profile;
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   try {
     const id = ctx.params.id;
-    const { user: userData } = await Api(ctx).post.getOne(+id);
-    const post = await Api(ctx).post.getOne(+userData?.id);
-    const userOne = await Api(ctx).user.getOne(+id);
+    const user = await Api(ctx).user.getOne(+id);
 
     return {
-      props: { post, user: userOne },
+      props: { user },
     };
   } catch (error) {
     console.log('profileError', error);
 
     return {
-      props: {},
-/*      redirect: {
+      props: {
+        user: {},
+      },
+      /*      redirect: {
         destination: '/',
         permanent: false,
       },*/

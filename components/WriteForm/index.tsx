@@ -35,7 +35,7 @@ export const WriteForm: FC<WriteFormProps> = ({ data }) => {
       };
       if (!data) {
         const post = await Api().post.create(obj);
-        push(`/write/${post.id}`).catch();
+        push(`/`).catch();
       } else {
         await Api().post.update(obj, data.id);
       }

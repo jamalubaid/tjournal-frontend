@@ -9,31 +9,37 @@ interface IEditorProps {
 }
 
 export const Editor: FC<IEditorProps> = ({ onChange, initialBlock }) => {
+  // @ts-ignore
+  let editor: EditorJS = { isReady: false };
   useEffect(() => {
-    const editor = new EditorJS({
-      holder: 'editor',
 
-      data: {
-        blocks: initialBlock,
-      },
-      placeholder: 'Введите текст вашей статьи',
-      async onChange() {
-        const { blocks } = await editor.save();
-        onChange(blocks);
-      },
+    if (!editor.isReady) {
+      editor = new EditorJS({
+        holder: 'editor',
 
-      /*tools: {
-        image: {
-          class: ImageTool,
-          config: {
-            endpoints: {
-              byFile: 'http://localhost:6200/posts/files', // Your backend file uploader endpoint
-              byUrl: 'http://localhost:6200/posts/files',
+        data: {
+          blocks: initialBlock,
+        },
+        placeholder: 'Введите текст вашей статьи',
+        async onChange() {
+          const { blocks } = await editor.save();
+          onChange(blocks);
+        },
+
+        /*tools: {
+          image: {
+            class: ImageTool,
+            config: {
+              endpoints: {
+                byFile: 'http://localhost:6200/posts/files', // Your backend file uploader endpoint
+                byUrl: 'http://localhost:6200/posts/files',
+              },
             },
           },
-        },
-      },*/
-    });
+        },*/
+      });
+    }
+
   }, []);
 
   return <div id="editor" />;

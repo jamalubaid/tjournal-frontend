@@ -5,6 +5,8 @@ import { GetServerSideProps, NextPage } from 'next';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
+
+
 import { FormField } from '../../components/FormField';
 import { MainLayout } from '../../layouts/MainLayout';
 import { useAppDispatch } from '../../redux/hooks';
@@ -13,12 +15,12 @@ import { Api } from '../../utils/api';
 import { ResponseCreateUser, UpdateUserDto } from '../../utils/api/types';
 import { UpdateFormSchema } from '../../utils/validations';
 
+
 interface ISettingsProps {
   user: ResponseCreateUser;
 }
 
 const Settings: NextPage<ISettingsProps> = ({ user }) => {
-  console.log(user)
   const form = useForm({
     mode: 'onChange',
     resolver: yupResolver(UpdateFormSchema),
@@ -38,6 +40,7 @@ const Settings: NextPage<ISettingsProps> = ({ user }) => {
         setUserData({
           ...obj,
           email: user.email,
+          posts: [],
         })
       );
       setSuccess(true);

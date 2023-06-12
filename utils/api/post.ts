@@ -52,4 +52,9 @@ export const PostApi = (instance: AxiosInstance) => ({
     );
     return data;
   },
+  async remove(id: number) {
+    await instance.delete<CreatePostDto, { data: PostItem }>(
+      `/posts/${id}`,
+    );
+  },
 });

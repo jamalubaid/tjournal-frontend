@@ -13,6 +13,12 @@
   }
 }
 
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .text {
   a {
     color: #07a287;

@@ -25,6 +25,7 @@ export type ResponseCreateUser = {
   id?: number;
   token?: string;
   password?: string;
+  posts: PostItem[];
 };
 
 export type PostItem = {
